@@ -91,7 +91,11 @@ export default function Projects() {
                 <div className="flex flex-wrap gap-2">
                   {project.tags.slice(0, 5).map(tag => (
                     <span key={tag.name} className="flex items-center gap-1.5 text-[0.78rem] font-medium bg-foreground/5 border border-border px-3 py-1.5 rounded-md text-muted-foreground">
-                      <img src={tag.icon} alt={tag.name} className={`w-[14px] h-[14px] object-contain ${tag.darkInvert ? 'dark:invert' : ''}`} />
+                      <img 
+                        src={tag.icon} 
+                        alt={tag.name} 
+                        className={`w-3.5 h-3.5 ${(tag as any).darkInvert ? 'dark:invert' : ''}`} 
+                      />
                       {tag.name}
                     </span>
                   ))}
@@ -174,7 +178,11 @@ export default function Projects() {
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.tags.map((tag) => (
                         <span key={tag.name} className="flex items-center gap-1.5 text-xs bg-foreground/5 border border-border px-3 py-1.5 rounded-md text-muted-foreground">
-                          <img src={tag.icon} alt={tag.name} className={`w-3.5 h-3.5 ${tag.darkInvert ? 'dark:invert' : ''}`} />
+                          <img 
+                            src={tag.icon} 
+                            alt={tag.name} 
+                            className={`w-3.5 h-3.5 ${(tag as any).darkInvert ? 'dark:invert' : ''}`} 
+                          />
                           {tag.name}
                         </span>
                       ))}

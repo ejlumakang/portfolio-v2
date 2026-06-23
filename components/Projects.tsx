@@ -5,7 +5,6 @@ import { projects } from "@/data/portfolio"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { ChevronLeft, ChevronRight, ExternalLink, Award, ArrowUpRight, X } from "lucide-react"
-import { Button } from "./ui/button"
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
@@ -29,19 +28,18 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="py-32 border-t border-border">
-      <div className="max-w-6xl mx-auto px-6 md:px-8">
-        {/* Header */}
-        <div className="grid md:grid-cols-[0.7fr_1.3fr] gap-8 md:gap-16 mb-20">
+    <section id="projects" className="py-16 md:py-24 border-t border-border">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12 mb-12 items-end">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-1"
           >
-            <span className="font-mono text-sm text-muted-foreground">03 /</span>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter">Projects.</h2>
+            <span className="font-mono text-xs text-muted-foreground">03 /</span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground">Projects.</h2>
           </motion.div>
           
           <motion.p 
@@ -49,56 +47,68 @@ export default function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-muted-foreground leading-relaxed"
+            className="text-base text-muted-foreground leading-relaxed"
           >
-            A collection of work ranging from academic research and collaborative team builds to personal projects I work on in my free time.
+            A curated collection of academic research, team collaborations, and personal projects.
           </motion.p>
         </div>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, idx) => (
             <motion.div 
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.4, delay: idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => handleOpen(project)}
-              className="group cursor-pointer bg-card border border-border rounded-[15px] overflow-hidden transition-all duration-500 ease-out flex flex-col hover:-translate-y-2 hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.1)] hover:border-foreground/20"
+             
+              className="group cursor-pointer bg-card border border-border/80 rounded-xl overflow-hidden transition-all duration-500 ease-out flex flex-col hover:-translate-y-1.5 hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] dark:hover:shadow-[0_4px_20px_-4px_rgba(255,255,255,0.08)] hover:border-foreground/15"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#141416]">
-                <div className="absolute top-5 left-5 bg-black/40 backdrop-blur-md border border-white/10 text-white font-mono text-[11px] font-medium px-2 py-1.5 rounded-md z-10">
+              {/* Image Container */}
+              <div className="relative aspect-[16/9.5] overflow-hidden bg-muted/20">
+                <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md border border-white/10 text-white font-mono text-[10px] font-medium px-2 py-1 rounded-md z-10">
                   {project.id}
                 </div>
-                <div className="absolute top-5 right-5 w-8 h-8 bg-black/40 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center z-10 transition-all duration-200 group-hover:bg-white group-hover:text-black group-hover:scale-105">
-                  <ArrowUpRight size={16} strokeWidth={2.5} />
+                <div className="absolute top-4 right-4 w-7 h-7 bg-black/50 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center z-10 transition-all duration-300 opacity-0 transform translate-y-1 scale-90 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100">
+                  <ArrowUpRight size={14} strokeWidth={2.5} />
                 </div>
                 <img 
                   src={project.images[0]} 
                   alt={project.title} 
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 />
               </div>
               
-              <div className="p-8 flex flex-col flex-grow">
-                <span className="font-mono text-[0.75rem] text-muted-foreground uppercase tracking-[0.05em] mb-3 block">
+              {/* Content Area */}
+              <div className="p-5 flex flex-col flex-grow">
+                <span className="font-mono text-[10px] text-muted-foreground/80 uppercase tracking-wider mb-1.5 block">
                   {project.category}
                 </span>
-                <h3 className="text-[1.45rem] font-semibold tracking-tight text-foreground mb-3">{project.title}</h3>
-                <p className="text-[0.95rem] text-muted-foreground line-clamp-3 mb-6 leading-[1.6]">{project.description}</p>
-                <div className="border-t border-border mt-auto mb-6" />
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.slice(0, 5).map(tag => (
-                    <span key={tag.name} className="flex items-center gap-1.5 text-[0.78rem] font-medium bg-foreground/5 border border-border px-3 py-1.5 rounded-md text-muted-foreground">
+                <h3 className="text-lg font-bold tracking-tight text-foreground mb-2 group-hover:text-foreground/80 transition-colors duration-300">
+                  {project.title}
+                </h3>
+                <p className="text-xs md:text-[13px] text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-1.5 mt-auto pt-4 border-t border-border/60">
+                  {project.tags.slice(0, 3).map(tag => (
+                    <span key={tag.name} className="flex items-center gap-1 text-[11px] font-medium bg-secondary/40 border border-border/50 px-2 py-0.5 rounded-md text-muted-foreground">
                       <img 
                         src={tag.icon} 
                         alt={tag.name} 
-                        className={`w-3.5 h-3.5 ${(tag as any).darkInvert ? 'dark:invert' : ''}`} 
+                        className={`w-3 h-3 ${(tag as any).darkInvert ? 'dark:invert' : ''}`}
                       />
                       {tag.name}
                     </span>
                   ))}
+                  {project.tags.length > 3 && (
+                    <span className="text-[10px] font-mono text-muted-foreground/60 self-center pl-1">
+                      +{project.tags.length - 3}
+                    </span>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -106,6 +116,7 @@ export default function Projects() {
         </div>
       </div>
 
+      {/* Lightbox */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
         <AnimatePresence>
           {selectedProject && (
@@ -119,9 +130,9 @@ export default function Projects() {
               >
                 <button 
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-6 right-6 z-50 p-2 rounded-full bg-transparent border border-muted-foreground/40 transition-all duration-300 hover:border-foreground hover:scale-110 active:scale-95"
+                  className="absolute top-4 right-4 md:top-6 md:right-6 z-50 p-2 rounded-full bg-background/80 backdrop-blur-md border border-muted-foreground/30 transition-all duration-300 hover:border-foreground hover:scale-110 active:scale-95"
                 >
-                  <X size={20} strokeWidth={2.5} className="transition-colors duration-300 text-muted-foreground group-hover:text-foreground" />
+                  <X size={18} strokeWidth={2.5} className="transition-colors duration-300 text-muted-foreground group-hover:text-foreground" />
                 </button>
 
                 <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>

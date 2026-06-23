@@ -87,7 +87,7 @@ export default function Navbar() {
                     if (element) element.scrollIntoView({ behavior: "smooth", block: "start" });
                   }
                 }}
-                // COHERENT HOVER: Added hover:bg-black/5 dark:hover:bg-white/10 to match toggle button
+                
                 className={`px-4 py-2 text-sm font-medium rounded-full capitalize transition-all duration-300 whitespace-nowrap
                   ${!isResume && activeSection === item 
                     ? (isDark ? "bg-white/10 text-white" : "bg-black/10 text-black") 

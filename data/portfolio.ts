@@ -202,9 +202,9 @@ export const experience = [
     description: [
       "Designed responsive user interfaces for web and mobile applications.",
       "Created structured user and administrator documentation to simplify complex software features.",
-      "Designed visual assets for email marketing campaigns using Figma and Canva.",
+      "Designed visual assets for email marketing campaigns.",
     ],
-    tech: ["Python", "SQL", "TensorFlow"]
+    tech: ["Figma", "Canva","Wireframing", "User Documentation"]
   },
   {
     id: 2,
@@ -214,10 +214,10 @@ export const experience = [
     period: "Aug 2023",
     description: [
       "Conducted a UX audit across 4 core platforms to establish a consolidated brand identity.",
-      "Designed prototypes for the Home, Log-in, and Contact pages, streamlining medicine ordering and teleconsultation flows.",
+      "Designed prototypes for Home, Log-in, and Contact pages, streamlining ordering and teleconsultation flows.",
       "Co-authored technical documentation and final project deliverables for submission."
     ],
-    tech: ["Python", "SQL", "TensorFlow"]
+    tech: ["Figma", "Canva", "Google Workspace", "Wireframing",]
   },
    {
     id: 3,
@@ -230,6 +230,6 @@ export const experience = [
       "Specializing in Intelligent Systems.", 
       "Related Courseworks: Artificial Intelligence, Intelligent Systems, Machine Learning, Natural Language Processing.",
     ],
-    tech: ["Python", "SQL", "TensorFlow"]
+    tech: ["Google Colab", "MATLAB", "Python", "GitHub"]
   },
 ];

@@ -50,9 +50,9 @@ export default function Technologies() {
                 hidden: { opacity: 0, y: 10 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="font-mono text-xs text-muted-foreground"
+              className="font-mono text-xs text-muted-foreground/60 tracking-widest"
             >
-              02 /
+              02 / WHAT I USE
             </motion.span>
             <motion.h2 
               variants={{

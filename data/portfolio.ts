@@ -18,7 +18,9 @@ export const technologies = [
   { name: "SEABORN", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Logo-seaborn.png/330px-Logo-seaborn.png" },
   { name: "GIT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
   { name: "GITHUB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", darkInvert: true },
-  { name: "MS APPS", icon: "https://cdn-icons-png.flaticon.com/512/732/732221.png" }
+  { name: "MICROSOFT APPS", icon: "https://cdn-icons-png.flaticon.com/512/732/732221.png" },
+  { name: "GOOGLE COLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg" },
+  { name: "MATLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" }
 ];
 
 export const projects = [
@@ -189,7 +191,7 @@ export const techCategories = {
   "Languages": ["PYTHON", "JAVASCRIPT", "JAVA", "HTML5", "CSS3"],
   "Frameworks & Tools": ["REACT NATIVE", "TAILWIND CSS", "FLASK", "GRAPHVIZ", "GIT", "GITHUB"],
   "Data Science": ["NUMPY", "SCIKIT-LEARN", "MATPLOTLIB", "PANDAS", "SEABORN"],
-  "Design & Workflow": ["FIGMA", "VS CODE", "CANVA", "WORKSPACE", "MS APPS"]
+  "Design & Workflow": ["FIGMA", "VS CODE", "CANVA", "WORKSPACE", "MICROSOFT APPS"]
 };
 
 export const experience = [
@@ -204,7 +206,7 @@ export const experience = [
       "Created structured user and administrator documentation to simplify complex software features.",
       "Designed visual assets for email marketing campaigns.",
     ],
-    tech: ["Figma", "Canva","Wireframing", "User Documentation"]
+    tech: ["Figma", "Canva", "Microsoft Apps",]
   },
   {
     id: 2,
@@ -217,7 +219,7 @@ export const experience = [
       "Designed prototypes for Home, Log-in, and Contact pages, streamlining ordering and teleconsultation flows.",
       "Co-authored technical documentation and final project deliverables for submission."
     ],
-    tech: ["Figma", "Canva", "Google Workspace", "Wireframing",]
+    tech: ["Figma", "Canva", "Workspace",]
   },
    {
     id: 3,
@@ -228,8 +230,53 @@ export const experience = [
     description: [
       "GPA: (3.7/4.0) Consistent Dean's Lister.",
       "Specializing in Intelligent Systems.", 
-      "Related Courseworks: Artificial Intelligence, Intelligent Systems, Machine Learning, Natural Language Processing.",
+      "Courseworks: Artificial Intelligence, Intelligent Systems, Machine Learning, Natural Language Processing, Object-Oriented Programming.",
     ],
-    tech: ["Google Colab", "MATLAB", "Python", "GitHub"]
+    tech: ["Google Colab", "Python", "JavaScript","MATLAB", "Figma"]
   },
+];
+
+export const certifications = [
+  {
+    id: "cert-01",
+    title: "Linux Essentials",
+    issuer: "Cisco",
+    date: "2026",
+    image: "img/certificate/linux.png"
+  },
+  {
+    id: "cert-02",
+    title: "Operating Systems Basics",
+    issuer: "Cisco",
+    date: "2026",
+    image: "img/certificate/os-basics.png"
+  },
+  {
+    id: "cert-03",
+    title: "Data Analytics Essentials",
+    issuer: "Cisco",
+    date: "2025",
+    image: "img/certificate/data-analytics.png"
+  },
+  {
+    id: "cert-04",
+    title: "Introduction to Cybersecurity",
+    issuer: "Cisco",
+    date: "2024",
+    image: "img/certificate/cybersecurity.png"
+  },
+  {
+    id: "cert-05",
+    title: "Introduction to IoT",
+    issuer: "Cisco",
+    date: "2024",
+    image: "img/certificate/iot.png"
+  },
+  {
+    id: "cert-06",
+    title: "Introduction to Data Science",
+    issuer: "Cisco",
+    date: "2024",
+    image: "img/certificate/data-science.png"
+  }
 ];

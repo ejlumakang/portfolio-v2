@@ -38,7 +38,7 @@ export default function Projects() {
             transition={{ duration: 0.6 }}
             className="flex flex-col gap-1"
           >
-            <span className="font-mono text-xs text-muted-foreground">03 /</span>
+            <span className="font-mono text-xs text-muted-foreground/60 tracking-widest">03 / WHAT WE'VE MADE</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground">Projects.</h2>
           </motion.div>
           

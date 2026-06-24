@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { experience } from "@/data/portfolio"
+import { experience, technologies } from "@/data/portfolio"
 import { motion, useScroll, useTransform } from "framer-motion"
 
 export default function Experience() {
@@ -19,7 +19,7 @@ export default function Experience() {
       ref={containerRef} 
       className="py-16 md:py-20 text-foreground overflow-hidden border-t border-border"
     >
-      <div className="max-w-5xl mx-auto px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
         
         {/* Header */}
         <div className="flex flex-col items-center justify-center mb-12 md:mb-16 text-center">
@@ -29,7 +29,7 @@ export default function Experience() {
             viewport={{ once: true }}
             className="flex flex-col items-center gap-1"
           >
-            <span className="font-mono text-xs text-muted-foreground">01 /</span>
+            <span className="font-mono text-xs text-muted-foreground/60 tracking-widest">01 / WHERE I'VE BEEN</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Experience.</h2>
           </motion.div>
         </div>
@@ -58,6 +58,15 @@ export default function Experience() {
 function TimelineItem({ exp, index }: { exp: any, index: number }) {
   const isLeft = index % 2 === 0
   
+  const getTechIcon = (techName: string) => {
+    const foundTech = technologies.find(
+      (t) => t.name.toLowerCase() === techName.toLowerCase()
+    )
+    return foundTech ? foundTech.icon : null
+  }
+
+  const startYear = exp.period.match(/\d{4}/)?.[0] || exp.period.split(" ").shift()
+
   return (
     <div className={`relative flex w-full justify-start md:justify-center ${isLeft ? "md:justify-start" : "md:justify-end"}`}>
       
@@ -67,17 +76,37 @@ function TimelineItem({ exp, index }: { exp: any, index: number }) {
         shadow-[0_0_0_2px_hsl(var(--background)),0_0_8px_2px_rgba(255,255,255,0.4)] 
         dark:shadow-[0_0_0_2px_hsl(var(--background)),0_0_10px_3px_rgba(255,255,255,0.3)]" />
       
+      {/* Background Floating Token displaying the startYear */}
+      <div 
+        className={`hidden md:block absolute top-5 font-mono text-7xl font-medium tracking-tighter select-none pointer-events-none transition-all duration-500 px-2
+          text-foreground/10 dark:text-foreground/10 group-hover:text-foreground/40 dark:group-hover:text-foreground/30 group-hover:scale-[1.03]
+          ${isLeft ? "left-[54%] text-left" : "right-[54%] text-right"}`}
+      >
+        {startYear}
+      </div>
+
       {/* Card Wrapper */}
       <motion.div 
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="w-[calc(100%-24px)] md:w-[46%] pl-6 md:pl-0"
+        className="w-[calc(100%-24px)] md:w-[46%] pl-6 md:pl-0 group"
       >
-        <div className="group p-4 md:p-5 rounded-xl bg-card border border-border transition-all duration-300 hover:border-foreground/20 hover:-translate-y-0.5 hover:shadow-md relative">
+        <div className="p-5 md:p-6 rounded-xl bg-card border border-border transition-all duration-300 hover:border-foreground/20 hover:-translate-y-0.5 hover:shadow-md relative overflow-hidden">
+    
+          <div 
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none -z-10"
+            style={{
+              background: `radial-gradient(
+                300px circle at 100% 100%, 
+                rgba(120, 119, 198, 0.04), 
+                transparent 100%
+              )`
+            }}
+          />
           
-          <div className="flex items-start gap-3 mb-3">
+          <div className="flex items-start gap-3 mb-3 relative z-10">
             <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center border border-border flex-shrink-0 overflow-hidden">
               <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover" />
             </div>
@@ -92,7 +121,7 @@ function TimelineItem({ exp, index }: { exp: any, index: number }) {
             </div>
           </div>
 
-          <ul className="text-muted-foreground leading-relaxed text-sm list-none space-y-2 pl-0 mb-4">
+          <ul className="text-muted-foreground leading-relaxed text-sm list-none space-y-2 pl-0 mb-4 relative z-10">
             {Array.isArray(exp.description) 
               ? exp.description.map((point: string, i: number) => (
                   <li key={i} className="flex gap-2 items-start">
@@ -106,15 +135,26 @@ function TimelineItem({ exp, index }: { exp: any, index: number }) {
 
           {/* Tech Tags */}
           {exp.tech && exp.tech.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/60">
-              {exp.tech.map((technology: string) => (
-                <span 
-                  key={technology} 
-                  className="text-[11px] font-mono uppercase tracking-wide bg-muted/40 border border-border/30 px-2 py-0.5 rounded-md text-muted-foreground/70 select-none"
-                >
-                  {technology}
-                </span>
-              ))}
+            <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border/60 relative z-10">
+              {exp.tech.map((technology: string) => {
+                const iconUrl = getTechIcon(technology)
+                
+                return (
+                  <span 
+                    key={technology} 
+                    className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wide bg-muted/40 border border-border/30 px-2 py-1 rounded-md text-muted-foreground/70 select-none"
+                  >
+                    {iconUrl && (
+                      <img 
+                        src={iconUrl} 
+                        alt={technology} 
+                        className="w-3.5 h-3.5 object-contain"
+                      />
+                    )}
+                    {technology}
+                  </span>
+                )
+              })}
             </div>
           )}
 

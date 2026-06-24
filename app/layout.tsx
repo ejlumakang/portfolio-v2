@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/Navbar"
+import { SmoothScroller } from "@/components/smooth-scroller"
 
 const sans = Plus_Jakarta_Sans({ 
   subsets: ["latin"], 
@@ -24,7 +25,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${sans.variable} ${mono.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
+          <SmoothScroller>
           <main>{children}</main>
+          </SmoothScroller>
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { projects } from "@/data/portfolio"
 import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
@@ -15,17 +15,27 @@ export default function Projects() {
     setCurrentImgIndex(0)
   }
 
-  const nextImg = () => {
+  const nextImg = useCallback(() => {
     if (selectedProject) {
       setCurrentImgIndex((prev) => (prev + 1) % selectedProject.images.length)
     }
-  }
+  }, [selectedProject])
 
-  const prevImg = () => {
+  const prevImg = useCallback(() => {
     if (selectedProject) {
       setCurrentImgIndex((prev) => (prev - 1 + selectedProject.images.length) % selectedProject.images.length)
     }
-  }
+  }, [selectedProject])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedProject) return
+      if (e.key === "ArrowRight") nextImg()
+      if (e.key === "ArrowLeft") prevImg()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [selectedProject, nextImg, prevImg])
 
   return (
     <section id="projects" className="py-16 md:py-24 border-t border-border">
@@ -38,7 +48,7 @@ export default function Projects() {
             transition={{ duration: 0.6 }}
             className="flex flex-col gap-1"
           >
-            <span className="font-mono text-xs text-muted-foreground/60 tracking-widest">03 / WHAT WE'VE MADE</span>
+            <span className="font-mono text-xs text-muted-foreground/60 tracking-widest">03 / BUILDS & COLLABORATIONS</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground">Projects.</h2>
           </motion.div>
           
@@ -63,7 +73,6 @@ export default function Projects() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.4, delay: idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => handleOpen(project)}
-             
               className="group cursor-pointer bg-card border border-border/80 rounded-xl overflow-hidden transition-all duration-500 ease-out flex flex-col hover:-translate-y-1.5 hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] dark:hover:shadow-[0_4px_20px_-4px_rgba(255,255,255,0.08)] hover:border-foreground/15"
             >
               {/* Image Container */}
@@ -116,7 +125,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Lightbox */}
+      {/* Lightbox Modal */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
         <AnimatePresence>
           {selectedProject && (
@@ -131,44 +140,47 @@ export default function Projects() {
                 <button 
                   onClick={() => setSelectedProject(null)}
                   className="absolute top-4 right-4 md:top-6 md:right-6 z-50 p-2 rounded-full bg-background/80 backdrop-blur-md border border-muted-foreground/30 transition-all duration-300 hover:border-foreground hover:scale-110 active:scale-95"
+                  aria-label="Close modal dialog"
                 >
-                  <X size={18} strokeWidth={2.5} className="transition-colors duration-300 text-muted-foreground group-hover:text-foreground" />
+                  <X size={18} strokeWidth={2.5} className="transition-colors duration-300 text-muted-foreground text-foreground" />
                 </button>
 
                 <DialogTitle className="sr-only">{selectedProject.title}</DialogTitle>
                 <DialogDescription className="sr-only">{selectedProject.description}</DialogDescription>
                 
-                <div className="w-full h-1/2 md:w-[60%] md:h-full bg-background relative flex items-center justify-center p-8 border-b md:border-b-0 md:border-r border-border">
+                <div className="w-full h-[45%] md:w-[60%] md:h-full bg-background relative flex items-center justify-center p-4 md:p-8 border-b md:border-b-0 md:border-r border-border overflow-hidden">
                   {selectedProject.images.length > 1 && (
                     <>
-                      <button onClick={prevImg} className="absolute left-4 z-10 p-3 rounded-full bg-black/50 text-white hover:bg-black/80 transition"><ChevronLeft size={20} /></button>
-                      <button onClick={nextImg} className="absolute right-4 z-10 p-3 rounded-full bg-black/50 text-white hover:bg-black/80 transition"><ChevronRight size={20} /></button>
+                      <button onClick={prevImg} className="absolute left-4 z-10 p-2.5 md:p-3 rounded-full bg-black/50 text-white hover:bg-black/80 transition" aria-label="Previous screenshot"><ChevronLeft size={20} /></button>
+                      <button onClick={nextImg} className="absolute right-4 z-10 p-2.5 md:p-3 rounded-full bg-black/50 text-white hover:bg-black/80 transition" aria-label="Next screenshot"><ChevronRight size={20} /></button>
                     </>
                   )}
-                  <motion.img 
-                    key={currentImgIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4 }}
-                    src={selectedProject.images[currentImgIndex]} 
-                    alt="Project View" 
-                    className="max-w-full max-h-full object-contain rounded-lg"
-                  />
-                  <div className="absolute bottom-4 right-4 bg-black/80 text-white font-mono text-xs px-3 py-1.5 rounded-md">
-                    0{currentImgIndex + 1} / 0{selectedProject.images.length}
+                  <div className="w-full h-full flex items-center justify-center relative">
+                    <motion.img 
+                      key={currentImgIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                      src={selectedProject.images[currentImgIndex]} 
+                      alt={`Project Screenshot view folder ${currentImgIndex + 1}`} 
+                      className="max-w-full max-h-full object-contain rounded-lg shadow-sm"
+                    />
+                  </div>
+                  <div className="absolute bottom-4 right-4 bg-black/80 text-white font-mono text-xs px-3 py-1.5 rounded-md select-none">
+                    {currentImgIndex + 1} / {selectedProject.images.length}
                   </div>
                 </div>
 
-                <div className="w-full h-1/2 md:w-[40%] md:h-full p-6 md:p-10 overflow-y-auto flex flex-col gap-y-8">
+                <div className="w-full h-[55%] md:w-[40%] md:h-full p-6 md:p-10 overflow-y-auto flex flex-col gap-y-6 md:gap-y-8">
                   <div>
-                    <div className="font-mono text-[10px] text-muted-foreground tracking-[0.2em] uppercase mb-3">PROJECT • {selectedProject.id}</div>
-                    <h2 className="text-3xl font-bold mb-3">{selectedProject.title}</h2>
+                    <div className="font-mono text-[10px] text-muted-foreground tracking-[0.2em] uppercase mb-2">PROJECT • {selectedProject.id}</div>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight">{selectedProject.title}</h2>
                     <p className="text-muted-foreground text-sm leading-relaxed">{selectedProject.description}</p>
                   </div>
                   
                   {selectedProject.awards && (
                     <div>
-                      <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-4">Awards & Certificates</span>
+                      <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Awards & Certificates</span>
                       {selectedProject.awards.map(award => (
                         <span key={award} className="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 text-yellow-600 dark:text-yellow-500 text-xs font-semibold px-3 py-1.5 rounded-md mb-2 block w-fit">
                           <Award size={14} /> {award}
@@ -177,7 +189,7 @@ export default function Projects() {
                       {(selectedProject as any).certificates && (selectedProject as any).certificates.length > 0 && (
                         <div className="grid grid-cols-4 gap-2 mt-2">
                           {(selectedProject as any).certificates.map((cert: string, i: number) => (
-                            <img key={i} src={cert} onClick={() => window.open(cert, "_blank")} className="cursor-pointer border border-border rounded-lg aspect-[4/3] object-cover hover:border-foreground/50 transition" />
+                            <img key={i} src={cert} alt="Award credential document mini view" onClick={() => window.open(cert, "_blank")} className="cursor-pointer border border-border rounded-lg aspect-[4/3] object-cover hover:border-foreground/50 transition" />
                           ))}
                         </div>
                       )}
@@ -185,7 +197,7 @@ export default function Projects() {
                   )}
 
                   <div>
-                    <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-4">Built With</span>
+                    <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Built With</span>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.tags.map((tag) => (
                         <span key={tag.name} className="flex items-center gap-1.5 text-xs bg-foreground/5 border border-border px-3 py-1.5 rounded-md text-muted-foreground">
@@ -201,13 +213,14 @@ export default function Projects() {
                   </div>
 
                   <div className="mt-auto pt-6 border-t border-dashed border-border">
-                    <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-4">Links</span>
+                    <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Links</span>
                     <div className="flex gap-2 flex-wrap">
                       {selectedProject.links.map((link) => (
                         <a
                           key={link.label}
                           href={link.url}
                           target="_blank"
+                          rel="noopener noreferrer"
                           className={`inline-flex items-center justify-center h-9 px-4 rounded-full text-xs font-medium gap-2 border transition-colors duration-200 ${
                             link.label !== 'Demo' 
                               ? 'bg-transparent border-muted-foreground/40 text-muted-foreground hover:text-foreground hover:border-foreground' 

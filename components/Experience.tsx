@@ -4,6 +4,20 @@ import { useRef } from "react"
 import { experience, technologies } from "@/data/portfolio"
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion"
 
+
+import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google"
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: "700",
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+})
+
 export default function Experience() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -17,20 +31,42 @@ export default function Experience() {
     <section 
       id="experience" 
       ref={containerRef} 
-      className="py-16 md:py-20 text-foreground overflow-hidden border-t border-border"
+      className="py-16 md:py-24 text-foreground overflow-hidden border-t border-border w-full bg-background relative"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         
-        <div className="flex flex-col items-center justify-center mb-12 md:mb-16 text-center">
+        {/* Section Header */}
+        <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12 mb-12 md:mb-16 items-end">
           <motion.div 
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center gap-1"
+            transition={{ duration: 0.6 }}
+            className="flex flex-col gap-3"
           >
-            <span className="font-mono text-xs text-muted-foreground/60 tracking-widest">01 / WHERE I'VE BEEN</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter">Experience.</h2>
+            <span className="font-mono text-xs text-muted-foreground/50 tracking-tight">
+              01 / THE JOURNEY
+            </span>
+            
+            <h2 className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]">
+              <span className={`${plusJakarta.className} font-semibold tracking-tight text-black dark:text-white`}>
+                Where I've
+              </span>
+              <span className={`${instrumentSerif.className} text-black dark:text-white subpixel-antialiased tracking-normal lowercase`}>
+                been.
+              </span>
+            </h2>
           </motion.div>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base text-muted-foreground leading-relaxed"
+          >
+            Where I started, places I've worked, and teams I've collaborated with. This is where I apply what I know to build real-world systems and tackle engineering challenges outside the classroom.
+          </motion.p>
         </div>
 
         <div className="relative">

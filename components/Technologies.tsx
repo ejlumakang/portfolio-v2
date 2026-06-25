@@ -1,114 +1,149 @@
 "use client"
 
-import { technologies } from "@/data/portfolio"
-import { motion } from "framer-motion"
+import { technologies, techCategories } from "@/data/portfolio"
+import { motion, Variants } from "framer-motion"
 
-function TechCard({ tech }: { tech: any }) {
+import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google"
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: "700",
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+})
+
+interface TechItem {
+  name: string;
+  icon: string;
+  darkInvert?: boolean;
+}
+
+function TechCard({ tech }: { tech: TechItem }) {
   return (
-    <div className="w-[260px] flex-shrink-0 group flex items-center gap-4 p-4 rounded-[16px] border border-border bg-card transition-all duration-300 ease-out cursor-default select-none hover:border-foreground/20 dark:hover:border-foreground/35 hover:bg-muted/30 hover:-translate-y-1 hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] dark:hover:shadow-[0_4px_20px_-4px_rgba(255,255,255,0.08)]">
-      <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-[10px] bg-muted/50 p-2 group-hover:scale-105 group-hover:bg-card transition-all duration-300 ease-out border border-transparent group-hover:border-border/40">
+    <div className="group font-mono flex flex-col items-center justify-center gap-2.5 p-3 rounded-[12px] border border-border bg-card transition-all duration-300 ease-out cursor-default select-none hover:border-foreground/20 dark:hover:border-foreground/35 hover:bg-muted/30 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.02)] dark:hover:shadow-[0_4px_12px_-4px_rgba(255,255,255,0.08)] text-center">
+      <div className="w-9 h-9 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ease-out">
         <img 
           src={tech.icon} 
           alt={tech.name} 
-          className={`w-full h-full object-contain ${tech.darkInvert ? 'dark:invert' : ''} group-hover:scale-105 transition-transform duration-300`} 
+          className={`w-full h-full object-contain ${tech.darkInvert ? 'dark:invert' : ''}`} 
         />
       </div>
-      <div className="flex flex-col overflow-hidden">
-        <span className="text-sm font-bold truncate group-hover:text-foreground transition-colors duration-300">{tech.name}</span>
-        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Technology</span>
-      </div>
+      <span className="text-[10px] tracking-tight font-bold truncate max-w-full text-muted-foreground group-hover:text-foreground transition-colors duration-300 px-0.5">
+        {tech.name}
+      </span>
     </div>
   )
 }
 
 export default function Technologies() {
-  const half = Math.ceil(technologies.length / 2)
-  const row1 = technologies.slice(0, half)
-  const row2 = technologies.slice(half)
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  }
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.5, ease: "easeOut" } 
+    }
+  }
 
   return (
-    <section id="technologies" className="py-16 md:py-24 border-t border-border w-full overflow-x-hidden">
-      <div className="max-w-6xl mx-auto px-6 md:px-8">
+    <section id="technologies" className="font-sans py-16 md:py-24 border-t border-border w-full bg-background relative overflow-hidden select-none">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         
-        {/* Header */}
-        <div className="flex flex-col items-center justify-center mb-12 text-center">
+        <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12 mb-12 md:mb-16 items-end">
           <motion.div 
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.15 }
-              }
-            }}
-            className="flex flex-col items-center gap-1"
+            variants={containerVariants}
+            className="flex flex-col gap-3"
           >
             <motion.span 
-              variants={{
-                hidden: { opacity: 0, y: 10 },
-                visible: { opacity: 1, y: 0 }
-              }}
-              className="font-mono text-xs text-muted-foreground/60 tracking-widest"
+              variants={itemVariants}
+              className="font-mono text-xs text-muted-foreground/50 tracking-tight"
             >
-              02 / WHAT I USE
+              02 / THE TOOLKIT
             </motion.span>
             <motion.h2 
-              variants={{
-                hidden: { opacity: 0, y: 15 },
-                visible: { opacity: 1, y: 0 }
-              }}
-              className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground"
+              variants={itemVariants}
+              className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]"
             >
-              Technologies.
+              <span className={`${plusJakarta.className} font-black tracking-tight text-black dark:text-white`}>
+                Technical
+              </span>
+              <span className={`${instrumentSerif.className} text-black dark:text-white subpixel-antialiased tracking-normal`}>
+                Stack.
+              </span>
             </motion.h2>
           </motion.div>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base text-muted-foreground leading-relaxed"
+          >
+            These are the tools and stacks I’ve worked with through projects and academics, and stuff I'm still actively playing around with and learning as I go.
+          </motion.p>
         </div>
+
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full items-stretch"
+        >
+          {Object.entries(techCategories).map(([categoryName, techNames], index) => {
+            const targetedTech = techNames
+              .map(name => technologies.find(t => t.name.toUpperCase() === name.toUpperCase()))
+              .filter((t): t is TechItem => !!t);
+
+            const formattedIndex = String(index + 1).padStart(2, '0');
+            
+            const isFrontendSection = index === 2;
+
+            return (
+              <motion.div 
+                key={categoryName}
+                variants={itemVariants}
+                className="flex flex-col p-6 rounded-xl border border-border bg-card transition-colors duration-300 hover:border-foreground/10"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="font-mono text-[11px] font-bold text-muted-foreground/80 bg-muted px-2 py-0.5 rounded-[6px] border border-border">
+                    {formattedIndex}
+                  </span>
+                  
+                  <h3 className="text-base font-sans font-semibold text-foreground tracking-tight">
+                    {categoryName}
+                  </h3>
+                </div>
+
+                <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 ${
+                  isFrontendSection ? "xl:grid-cols-4 gap-2" : "xl:grid-cols-3 gap-3.5"
+                } content-start`}>
+                  {targetedTech.map((tech) => (
+                    <TechCard key={tech.name} tech={tech} />
+                  ))}
+                </div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
+
       </div>
-
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="flex flex-col gap-6 mt-12 relative w-full overflow-x-hidden"
-        style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}
-      >
-        {/* Row 1 */}
-        <div className="flex overflow-x-hidden w-full py-2">
-          <motion.div
-            className="flex w-max"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 100 }}
-          >
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex gap-6 pr-6">
-                {row1.map((tech) => (
-                  <TechCard key={`${i}-${tech.name}`} tech={tech} />
-                ))}
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Row 2 */}
-        <div className="flex overflow-x-hidden w-full py-2">
-          <motion.div
-            className="flex w-max"
-            animate={{ x: ["-50%", "0%"] }} 
-            transition={{ repeat: Infinity, ease: "linear", duration: 100 }} 
-          >
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="flex gap-6 pr-6">
-                {row2.map((tech) => (
-                  <TechCard key={`${i}-${tech.name}`} tech={tech} />
-                ))}
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.div>
-      
     </section>
   )
 }

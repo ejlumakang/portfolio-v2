@@ -6,6 +6,8 @@ import Experience from "@/components/Experience"
 import Certifications from "@/components/Certifications"
 
 export default function Home() {
+
+  
   return (
     <main>
       <Hero />

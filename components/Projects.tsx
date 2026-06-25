@@ -6,6 +6,19 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { ChevronLeft, ChevronRight, ExternalLink, Award, ArrowUpRight, X } from "lucide-react"
 
+import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google"
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: "700",
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+})
+
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
   const [currentImgIndex, setCurrentImgIndex] = useState(0)
@@ -46,10 +59,17 @@ export default function Projects() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col gap-1"
+            className="flex flex-col gap-3"
           >
-            <span className="font-mono text-xs text-muted-foreground/60 tracking-widest">03 / BUILDS & COLLABORATIONS</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground">Projects.</h2>
+            <span className="font-mono text-xs text-muted-foreground/50 tracking-tight">03 / THE BUILDS</span>
+            <h2 className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]">
+              <span className={`${plusJakarta.className} font-black tracking-tight text-black dark:text-white`}>
+                Project
+              </span>
+              <span className={`${instrumentSerif.className} text-black dark:text-white subpixel-antialiased tracking-normal`}>
+                Gallery.
+              </span>
+            </h2>
           </motion.div>
           
           <motion.p 
@@ -59,7 +79,7 @@ export default function Projects() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base text-muted-foreground leading-relaxed"
           >
-            A curated collection of academic research, team collaborations, and personal projects.
+            Systems, research, and designs built from scratch. A handful are late-night collaborative efforts with other developers, mixed with a personal projects built during free time.
           </motion.p>
         </div>
 

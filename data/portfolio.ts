@@ -20,7 +20,9 @@ export const technologies = [
   { name: "GITHUB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", darkInvert: true },
   { name: "MICROSOFT APPS", icon: "https://cdn-icons-png.flaticon.com/512/732/732221.png" },
   { name: "GOOGLE COLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg" },
-  { name: "MATLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" }
+  { name: "REACT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
+  { name: "NEXT.JS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
+  { name: "TYPESCRIPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" }
 ];
 
 export const projects = [
@@ -188,10 +190,9 @@ export const projects = [
 ];
 
 export const techCategories = {
-  "Languages": ["PYTHON", "JAVASCRIPT", "JAVA", "HTML5", "CSS3"],
-  "Frameworks & Tools": ["REACT NATIVE", "TAILWIND CSS", "FLASK", "GRAPHVIZ", "GIT", "GITHUB"],
-  "Data Science": ["NUMPY", "SCIKIT-LEARN", "MATPLOTLIB", "PANDAS", "SEABORN"],
-  "Design & Workflow": ["FIGMA", "VS CODE", "CANVA", "WORKSPACE", "MICROSOFT APPS"]
+  "Core Engineering & Tools": ["PYTHON", "JAVASCRIPT", "JAVA", "FLASK", "GIT", "GITHUB", "VS CODE"],
+  "Data Science & Intelligent Systems": ["NUMPY", "SCIKIT-LEARN", "MATPLOTLIB", "PANDAS", "SEABORN", "GOOGLE COLAB"],
+  "Frontend & Interface Design": ["HTML5", "CSS3", "TYPESCRIPT","REACT NATIVE", "TAILWIND CSS", "NEXT.JS", "FIGMA", "CANVA", "WORKSPACE", "MICROSOFT APPS"]
 };
 
 export const experience = [
@@ -232,51 +233,168 @@ export const experience = [
       "Specializing in Intelligent Systems.", 
       "Courseworks: Artificial Intelligence, Intelligent Systems, Machine Learning, Natural Language Processing, Object-Oriented Programming.",
     ],
-    tech: ["Google Colab", "Python", "JavaScript","MATLAB", "Figma"]
+    tech: ["Google Colab", "Python", "JavaScript", "Figma"]
   },
 ];
 
 export const certifications = [
   {
+    id: "comp-01",
+    title: "EDUtech Asia 2025: Planet Protectors Sustainability Challenge",
+    issuer: "EDUtech Asia & Google for Education",
+    date: "2025",
+    type: "COMPETITION",
+    result: "Champion",
+    image: "img/certificate/img5.png"
+   
+  },
+   {
+    id: "comp-02",
+    title: "Game Jam Los Banos 2025: Likhang Laro, Larong Likha",
+    issuer: "UPLB COSS & GDS",
+    date: "2025",
+    type: "COMPETITION",
+    result: "3rd Place - People's Choice",
+    image: "img/certificate/img6.png"
+    
+  },
+  {
+    id: "comp-03",
+    title: "SIKAPTala 2025: Hackathon",
+    issuer: "DLSU-D & Campus DEVCON",
+    date: "2025",
+    type: "COMPETITION",
+    result: "Top Finalist",
+    image: "img/certificate/img1.jpg"
+  },
+  {
+    id: "comp-04",
+    title: "SIKAPTala 2025: Research Presentation",
+    issuer: "DLSU-D & Campus DEVCON",
+    date: "2025",
+    type: "COMPETITION",
+    result: "Top Finalist",
+    image: "img/certificate/img2.png"
+  },
+ {
+    id: "comp-05",
+    title: "Codeyssey Online Coding Competition",
+    issuer: "DLSU-D CSPC",
+    date: "2024",
+    type: "COMPETITION",
+    result: "Participant",
+    image: "img/certificate/img9.png"
+  },
+  {
     id: "cert-01",
     title: "Linux Essentials",
     issuer: "Cisco",
     date: "2026",
-    image: "img/certificate/linux.png"
+    type: "CERTIFICATION",
+    image: "img/certificate/cisco/linux.png"
   },
   {
     id: "cert-02",
     title: "Operating Systems Basics",
     issuer: "Cisco",
     date: "2026",
-    image: "img/certificate/os-basics.png"
+    type: "CERTIFICATION",
+    image: "img/certificate/cisco/os-basics.png"
   },
   {
     id: "cert-03",
     title: "Data Analytics Essentials",
     issuer: "Cisco",
     date: "2025",
-    image: "img/certificate/data-analytics.png"
+    type: "CERTIFICATION",
+    image: "img/certificate/cisco/data-analytics.png"
   },
   {
     id: "cert-04",
     title: "Introduction to Cybersecurity",
     issuer: "Cisco",
     date: "2024",
-    image: "img/certificate/cybersecurity.png"
+    type: "CERTIFICATION",
+    image: "img/certificate/cisco/cybersecurity.png"
   },
   {
     id: "cert-05",
     title: "Introduction to IoT",
     issuer: "Cisco",
     date: "2024",
-    image: "img/certificate/iot.png"
+    type: "CERTIFICATION",
+    image: "img/certificate/cisco/iot.png"
   },
   {
     id: "cert-06",
     title: "Introduction to Data Science",
     issuer: "Cisco",
     date: "2024",
-    image: "img/certificate/data-science.png"
-  }
+    type: "CERTIFICATION",
+    image: "img/certificate/cisco/data-science.png"
+  },
+      {
+    id: "work-01",
+    title: "International Conference on Artificial Intelligence: Poster Presentation",
+    issuer: "DLSU-D",
+    date: "2026",
+    type: "EVENTS",
+    image: "img/certificate/img3.png"
+  },
+      {
+    id: "work-02",
+    title: "International Conference on Artificial Intelligence: Paper Presentation",
+    issuer: "DLSU-D",
+    date: "2026",
+    type: "EVENTS",
+    image: "img/certificate/img4.png"
+  },
+    {
+    id: "work-03",
+    title: "Back to Basics: Robotics 101",
+    issuer: "DLSU-D CSPC",
+    date: "2024",
+    type: "EVENTS",
+    image: "img/certificate/img13.png"
+  },
+    {
+    id: "work-04",
+    title: "CSlash IT: Intelligent Systems Seminar",
+    issuer: "DLSU-D CSITPC",
+    date: "2024",
+    type: "EVENTS",
+    image: "img/certificate/img10.png"
+  },
+  {
+    id: "work-05",
+    title: "CSlash IT: Game Development Seminar",
+    issuer: "DLSU-D CSITPC",
+    date: "2024",
+    type: "EVENTS",
+    image: "img/certificate/img11.png"
+  },
+    {
+    id: "work-06",
+    title: "CSlash IT: GitHub Webinar",
+    issuer: "DLSU-D CSITPC",
+    date: "2024",
+    type: "EVENTS",
+    image: "img/certificate/img12.png"
+  },
+  {
+    id: "work-07",
+    title: "Tulong Karunungan Python Pathways: CodeSprint",
+    issuer: "Tulong Karunungan",
+    date: "2023",
+    type: "EVENTS",
+    image: "img/certificate/img14.png"
+  },
+    {
+    id: "work-08",
+    title: "Tulong Karunungan Python Pathways: CodeCanvas",
+    issuer: "Tulong Karunungan",
+    date: "2023",
+    type: "EVENTS",
+    image: "img/certificate/img15.png"
+  },
 ];

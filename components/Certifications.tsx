@@ -1,9 +1,24 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useReducedMotion } from "framer-motion"
-import { ArrowUpRight, Calendar } from "lucide-react"
+import { useState, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ArrowUpRight, Calendar, Trophy, Award, Terminal, X, ExternalLink, Briefcase } from "lucide-react"
 import { certifications } from "@/data/portfolio"
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google"
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: "700",
+})
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+})
+
+type FilterType = "CERTIFICATION" | "COMPETITION" | "EVENTS"
 
 const getCredlyLink = (id: string) => {
   return id.startsWith("cert-") 
@@ -11,20 +26,36 @@ const getCredlyLink = (id: string) => {
     : "https://www.credly.com/users/eloiza-lumakang"
 }
 
-const getBadgeIcon = (id: string) => {
-  const badges: Record<string, string> = {
-    "cert-01": "https://images.credly.com/size/680x680/images/e8fe3d67-2967-43d0-bc4a-7a268a37f47b/image.png",
-    "cert-02": "https://images.credly.com/size/680x680/images/dcdf1a3c-2594-4f4c-a33a-050b4bca58b5/image.png",
-    "cert-03": "https://images.credly.com/size/680x680/images/1fdfeaeb-e61c-4450-bdfe-a07bd4e715df/image.png",
-    "cert-04": "https://images.credly.com/size/680x680/images/af8c6b4e-fc31-47c4-8dcb-eb7a2065dc5b/I2CS__1_.png",
-    "cert-05": "https://images.credly.com/size/680x680/images/fce226c2-0f13-4e17-b60c-24fa6ffd88cb/Intro2IoT.png",
-    "cert-06": "https://images.credly.com/size/680x680/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/image.png",
+const getFallbackIcon = (type: string) => {
+  if (type === "COMPETITION") return "https://images.credly.com/images/9c3ea1af-2212-42c2-b7e1-87c6b5b9cf4a/Competency_Icon.png" 
+  return "https://images.credly.com/images/9936cf18-0f04-4560-b8d9-2fb0e806bc3d/Linux_Essentials.png"
+}
+
+const getTypeMeta = (type: string) => {
+  switch (type) {
+    case "COMPETITION":
+      return { label: "Competition", icon: Trophy, color: "text-amber-500 bg-amber-500/5 border-amber-500/10" }
+    case "EVENTS":
+      return { label: "Events", icon: Briefcase, color: "text-blue-500 bg-blue-500/5 border-blue-500/10" }
+    default:
+      return { label: "Certification", icon: Award, color: "text-emerald-500 bg-emerald-500/5 border-emerald-500/10" }
   }
-  return badges[id] || "https://images.credly.com/images/9936cf18-0f04-4560-b8d9-2fb0e806bc3d/Linux_Essentials.png"
 }
 
 export default function Certifications() {
   const sectionRef = useRef<HTMLDivElement>(null)
+  const [activeFilter, setActiveFilter] = useState<FilterType>("CERTIFICATION")
+  const [selectedCert, setSelectedCert] = useState<typeof certifications[0] | null>(null)
+
+  const filters: { label: string; value: FilterType }[] = [
+    { label: "Credentials", value: "CERTIFICATION" },
+    { label: "Competitions", value: "COMPETITION" },
+    { label: "Events", value: "EVENTS" },
+  ]
+
+  const filteredCertifications = certifications.filter(cert => {
+    return cert.type === activeFilter
+  })
 
   return (
     <section id="certifications" ref={sectionRef} className="py-20 md:py-28 border-t border-border bg-background relative overflow-hidden select-none">
@@ -32,16 +63,23 @@ export default function Certifications() {
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12 mb-16 md:mb-24 items-end">
+        <div className="grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12 mb-12 items-end">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col gap-1"
+            className="flex flex-col gap-3"
           >
-            <span className="font-mono text-xs text-muted-foreground/60 tracking-widest">04 / KNOWLEDGE BASE</span>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-foreground">Certifications.</h2>
+            <span className="font-mono text-xs text-muted-foreground/50 tracking-tight">04 / THE CREDENTIALS</span>
+           <h2 className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]">
+            <span className={`${plusJakarta.className} font-black tracking-tight text-black dark:text-white`}>
+              Knowledge
+            </span>
+            <span className={`${instrumentSerif.className} text-black dark:text-white subpixel-antialiased tracking-normal`}>
+              Base.
+            </span>
+          </h2>
           </motion.div>
           
           <motion.p 
@@ -51,56 +89,158 @@ export default function Certifications() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-base text-muted-foreground leading-relaxed"
           >
-            Technical specializations and industry-vetted skill pathways verified by Cisco Networking Academy.
+           This growing knowledge base includes professional certifications, tech competitions, and the various workshops and seminars I’ve joined to level up my skills.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {certifications.map((cert, idx) => (
-            <motion.a
-              key={cert.id}
-              href={getCredlyLink(cert.id)}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10px" }}
-              transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="group/badge w-full bg-card border border-border rounded-xl p-6 flex items-center gap-5 transition-colors duration-300 hover:border-foreground/20 hover:shadow-md relative overflow-hidden transform-gpu backface-hidden"
-            >
-              <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 flex items-center justify-center relative transition-transform duration-500 group-hover/badge:scale-105">
-                <img 
-                  src={getBadgeIcon(cert.id)}
-                  alt={cert.title}
-                  className="w-full h-full object-contain filter drop-shadow-sm"
-                />
-              </div>
-
-              <div className="flex flex-col justify-between flex-grow h-full min-w-0">
-                <div className="space-y-0.5">
-                  <span className="font-mono text-[9px] text-muted-foreground/60 uppercase tracking-widest block">
-                    {cert.issuer} Academy
-                  </span>
-                  <h3 className="text-sm font-bold tracking-tight text-foreground leading-snug line-clamp-1 group-hover/badge:text-foreground/80 transition-colors">
-                    {cert.title}
-                  </h3>
-                </div>
-
-                <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground/40 mt-3">
-                  <Calendar size={11} />
-                  <span>Issued {cert.date}</span>
-                </div>
-              </div>
-
-              <div className="absolute top-4 right-4 text-muted-foreground/30 group-hover/badge:text-foreground group-hover/badge:translate-x-0.5 group-hover/badge:-translate-y-0.5 transition-all duration-300">
-                <ArrowUpRight size={14} strokeWidth={2.5} />
-              </div>
-            </motion.a>
-          ))}
+        {/* Filter Navigation Bar */}
+        <div className="flex flex-wrap gap-2 mb-12 pb-2 border-b border-border/40">
+          {filters.map((filter) => {
+            const isActive = activeFilter === filter.value
+            return (
+              <button
+                key={filter.value}
+                onClick={() => setActiveFilter(filter.value)}
+                className={`relative px-4 py-2 text-xs font-mono font-medium rounded-full transition-colors duration-300 ${
+                  isActive ? "text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeCertFilter"
+                    className="absolute inset-0 bg-muted rounded-full -z-10 border border-border"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                {filter.label}
+              </button>
+            )
+          })}
         </div>
 
+        {/* Certifications Grid */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredCertifications.map((cert) => {
+              const meta = getTypeMeta(cert.type || "CERTIFICATION")
+              const IconComponent = meta.icon
+              const actionText = cert.result || (cert.type === "COMPETITION" ? "Won" : "Issued")
+
+              return (
+                <motion.div
+                  layout
+                  key={cert.id}
+                  onClick={() => setSelectedCert(cert)}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                  className="group/badge w-full bg-card border border-border rounded-xl p-6 flex items-center gap-5 transition-colors duration-300 hover:border-foreground/20 hover:shadow-md relative overflow-hidden transform-gpu backface-hidden cursor-pointer select-none"
+                >
+                  <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 flex items-center justify-center relative transition-transform duration-500 group-hover/badge:scale-105 overflow-hidden rounded-md bg-muted/30">
+                    <img 
+                      src={cert.image || getFallbackIcon(cert.type || "CERTIFICATION")}
+                      alt={cert.title}
+                      className="w-full h-full object-contain filter drop-shadow-sm"
+                    />
+                  </div>
+
+                  <div className="flex flex-col justify-between flex-grow h-full min-w-0">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-mono text-[9px] text-muted-foreground/60 uppercase tracking-widest truncate">
+                          {cert.issuer}
+                        </span>
+                        <span className={`flex items-center gap-1 text-[8px] font-mono font-bold uppercase tracking-wide border px-1.5 py-0.5 rounded-md ${meta.color}`}>
+                          <IconComponent size={9} />
+                          {meta.label}
+                        </span>
+                      </div>
+                      
+                      <h3 className="text-sm font-bold tracking-tight text-foreground leading-snug line-clamp-2 group-hover/badge:text-foreground/80 transition-colors">
+                        {cert.title}
+                      </h3>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground/40 mt-3">
+                      <Calendar size={11} />
+                      <span>{actionText} {cert.date}</span>
+                    </div>
+                  </div>
+
+                  <div className="absolute top-4 right-4 text-muted-foreground/30 group-hover/badge:text-foreground group-hover/badge:translate-x-0.5 group-hover/badge:-translate-y-0.5 transition-all duration-300">
+                    <ArrowUpRight size={14} strokeWidth={2.5} />
+                  </div>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </motion.div>
+
       </div>
+
+      {/* Lightbox Preview Modal */}
+      <Dialog open={!!selectedCert} onOpenChange={() => setSelectedCert(null)}>
+        <AnimatePresence>
+          {selectedCert && (
+            <DialogContent className="sm:max-w-[800px] w-[95vw] h-[75vh] p-0 overflow-hidden bg-card border-border rounded-2xl [&>button]:hidden">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="flex flex-col w-full h-full relative"
+              >
+                <button 
+                  onClick={() => setSelectedCert(null)}
+                  className="absolute top-4 right-4 z-50 p-2 rounded-full bg-background/80 backdrop-blur-md border border-muted-foreground/30 transition-all duration-300 hover:border-foreground hover:scale-110 active:scale-95"
+                  aria-label="Close dialog"
+                >
+                  <X size={18} strokeWidth={2.5} className="text-muted-foreground hover:text-foreground transition-colors" />
+                </button>
+
+                <DialogTitle className="sr-only">{selectedCert.title}</DialogTitle>
+                <DialogDescription className="sr-only">Visual validation image for {selectedCert.title}</DialogDescription>
+                
+                <div className="w-full flex-grow bg-background relative flex items-center justify-center p-6 md:p-12 overflow-hidden border-b border-border">
+                  <img 
+                    src={selectedCert.image || getFallbackIcon(selectedCert.type || "CERTIFICATION")} 
+                    alt={`${selectedCert.title} verification credential view`} 
+                    className="max-w-full max-h-full object-contain rounded-lg shadow-md"
+                  />
+                </div>
+
+                <div className="w-full p-5 md:p-6 bg-card flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                  <div>
+                    <span className="block font-mono text-[9px] text-muted-foreground uppercase tracking-widest mb-0.5">
+                      {selectedCert.issuer}
+                    </span>
+                    <h2 className="text-base font-bold tracking-tight text-foreground">{selectedCert.title}</h2>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 shrink-0">
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {selectedCert.result || (selectedCert.type === "COMPETITION" ? "Won" : "Issued")}: {selectedCert.date}
+                    </span>
+                    <a
+                      href={getCredlyLink(selectedCert.id)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center h-9 px-4 rounded-full text-xs font-medium gap-2 border bg-foreground text-background hover:opacity-95 transition-opacity"
+                    >
+                      Verify Credentials <ExternalLink size={13} />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </DialogContent>
+          )}
+        </AnimatePresence>
+      </Dialog>
     </section>
   )
 }

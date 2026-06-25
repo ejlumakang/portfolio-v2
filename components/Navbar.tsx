@@ -9,7 +9,9 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   
+  const targetedSectionRef = useRef<string | null>(null);
   const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null); 
   const containerRef = useRef<HTMLUListElement>(null);
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 });
 
@@ -17,9 +19,14 @@ export default function Navbar() {
     setMounted(true);
 
     const handleScroll = () => {
-      if (isScrollingRef.current) return;
+      if (isScrollingRef.current && targetedSectionRef.current) {
+        if (activeSection !== targetedSectionRef.current) {
+          setActiveSection(targetedSectionRef.current);
+        }
+        return;
+      }
 
-      const sections = ["home", "experience", "technologies", "projects"];
+      const sections = ["home", "experience", "technologies", "projects", "certifications"];
       let currentSection = activeSection;
 
       for (const section of sections) {
@@ -86,7 +93,7 @@ export default function Navbar() {
   if (!mounted) return null;
 
   const isDark = resolvedTheme === "dark";
-  const navItems = ["home", "experience", "technologies", "projects", "resume"];
+  const navItems = ["home", "experience", "technologies", "projects", "certifications"];
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 px-4 flex justify-center">
@@ -98,8 +105,7 @@ export default function Navbar() {
           className="relative flex items-center gap-1 overflow-x-auto no-scrollbar max-w-[calc(100vw-80px)]"
         >
           <div
-            className={`absolute inset-y-0 rounded-full transition-all duration-300 pointer-events-none -z-10
-              ${isDark ? "bg-white/10" : "bg-black/10"}`}
+            className="absolute inset-y-0 rounded-full transition-all duration-300 pointer-events-none -z-10 bg-black dark:bg-white"
             style={{
               left: `${pillStyle.left}px`,
               width: `${pillStyle.width}px`,
@@ -109,37 +115,36 @@ export default function Navbar() {
           />
 
           {navItems.map((item) => {
-            const isResume = item === "resume";
-            const isActive = !isResume && activeSection === item;
+            const isActive = activeSection === item;
             
             return (
               <a 
                 key={item}
                 data-section={item}
-                href={isResume ? "https://drive.google.com/file/d/1RaPukzDFC8hjoMG-DtIEM8_sBSpGVqbw/view?usp=sharing" : `#${item}`} 
-                target={isResume ? "_blank" : undefined}
-                rel={isResume ? "noopener noreferrer" : undefined}
+                href={`#${item}`} 
                 onClick={(e) => {
-                  if (!isResume) {
-                    e.preventDefault(); 
-                    setActiveSection(item);
+                  e.preventDefault(); 
+                  
+                  setActiveSection(item);
+                  targetedSectionRef.current = item;
+                  
+                  if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+                  isScrollingRef.current = true;
+                  
+                  const element = document.getElementById(item);
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "start" });
                     
-                    isScrollingRef.current = true;
-                    
-                    const element = document.getElementById(item);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
-                      
-                      setTimeout(() => {
-                        isScrollingRef.current = false;
-                      }, 800);
-                    }
+                    scrollTimeoutRef.current = setTimeout(() => {
+                      isScrollingRef.current = false;
+                      targetedSectionRef.current = null;
+                    }, 600);
                   }
                 }}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full capitalize whitespace-nowrap block transition-colors duration-200
+                className={`relative px-4 py-2 text-sm font-medium rounded-full capitalize whitespace-nowrap block transition-all duration-200
                   ${isActive 
-                    ? (isDark ? "text-white" : "text-black") 
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-white dark:text-black font-semibold" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5"
                   }`}
               >
                 <span className="relative z-10 pointer-events-none">{item}</span>

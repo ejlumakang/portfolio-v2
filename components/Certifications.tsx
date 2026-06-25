@@ -2,21 +2,9 @@
 
 import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowUpRight, Calendar, Trophy, Award, Terminal, X, ExternalLink, Briefcase } from "lucide-react"
+import { ArrowUpRight, Calendar, Trophy, Award, X, ExternalLink, Briefcase } from "lucide-react"
 import { certifications } from "@/data/portfolio"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google"
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: "700",
-})
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
-})
 
 type FilterType = "CERTIFICATION" | "COMPETITION" | "EVENTS"
 
@@ -34,11 +22,11 @@ const getFallbackIcon = (type: string) => {
 const getTypeMeta = (type: string) => {
   switch (type) {
     case "COMPETITION":
-      return { label: "Competition", icon: Trophy, color: "text-amber-500 bg-amber-500/5 border-amber-500/10" }
+      return { label: "Competition", icon: Trophy, color: "text-pink-400 bg-pink-500/10 border-pink-500/20" }
     case "EVENTS":
-      return { label: "Events", icon: Briefcase, color: "text-blue-500 bg-blue-500/5 border-blue-500/10" }
+      return { label: "Events", icon: Briefcase, color: "text-pink-400 bg-pink-500/10 border-pink-500/20" }
     default:
-      return { label: "Certification", icon: Award, color: "text-emerald-500 bg-emerald-500/5 border-emerald-500/10" }
+      return { label: "Certification", icon: Award, color: "text-pink-400 bg-pink-500/10 border-pink-500/20" }
   }
 }
 
@@ -71,12 +59,15 @@ export default function Certifications() {
             transition={{ duration: 0.6 }}
             className="flex flex-col gap-3"
           >
-            <span className="font-mono text-xs text-muted-foreground/50 tracking-tight">04 / THE CREDENTIALS</span>
+            {/* UPDATED PILL OVERLAY LAYER: Changed text color fields to matching vibrant theme pink styles */}
+            <span className="font-mono text-xs text-pink-500 dark:text-pink-400 font-bold tracking-[0.2em] uppercase mb-4">
+              04 / THE CREDENTIALS
+            </span>
            <h2 className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]">
-            <span className={`${plusJakarta.className} font-black tracking-tight text-black dark:text-white`}>
+            <span className="font-black tracking-tight text-black dark:text-white">
               Knowledge
             </span>
-            <span className={`${instrumentSerif.className} text-black dark:text-white subpixel-antialiased tracking-normal`}>
+            <span className="font-serif text-black dark:text-white subpixel-antialiased tracking-normal">
               Base.
             </span>
           </h2>

@@ -6,19 +6,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { ChevronLeft, ChevronRight, ExternalLink, Award, ArrowUpRight, X } from "lucide-react"
 
-import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google"
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: "700",
-})
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
-})
-
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
   const [currentImgIndex, setCurrentImgIndex] = useState(0)
@@ -61,12 +48,14 @@ export default function Projects() {
             transition={{ duration: 0.6 }}
             className="flex flex-col gap-3"
           >
-            <span className="font-mono text-xs text-muted-foreground/50 tracking-tight">03 / THE BUILDS</span>
+            <span className="font-mono text-xs text-pink-500 dark:text-pink-400 font-bold tracking-[0.2em] uppercase mb-4">
+              03 / THE BUILDS
+            </span>
             <h2 className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]">
-              <span className={`${plusJakarta.className} font-black tracking-tight text-black dark:text-white`}>
+              <span className="font-black tracking-tight text-black dark:text-white">
                 Project
               </span>
-              <span className={`${instrumentSerif.className} text-black dark:text-white subpixel-antialiased tracking-normal`}>
+              <span className="font-serif text-black dark:text-white subpixel-antialiased tracking-normal">
                 Gallery.
               </span>
             </h2>
@@ -93,7 +82,7 @@ export default function Projects() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.4, delay: idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => handleOpen(project)}
-              className="group cursor-pointer bg-card border border-border/80 rounded-xl overflow-hidden transition-all duration-500 ease-out flex flex-col hover:-translate-y-1.5 hover:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] dark:hover:shadow-[0_4px_20px_-4px_rgba(255,255,255,0.08)] hover:border-foreground/15"
+              className="group cursor-pointer bg-card border border-border/80 rounded-xl overflow-hidden transition-all duration-500 ease-out flex flex-col hover:-translate-y-1.5 hover:shadow-[0_4px_20px_-4px_rgba(236,72,153,0.15)] dark:hover:shadow-[0_4px_20px_-4px_rgba(236,72,153,0.25)] hover:border-pink-500 dark:hover:border-pink-400"
             >
               {/* Image Container */}
               <div className="relative aspect-[16/9.5] overflow-hidden bg-muted/20">
@@ -115,9 +104,11 @@ export default function Projects() {
                 <span className="font-mono text-[10px] text-muted-foreground/80 uppercase tracking-wider mb-1.5 block">
                   {project.category}
                 </span>
-                <h3 className="text-lg font-bold tracking-tight text-foreground mb-2 group-hover:text-foreground/80 transition-colors duration-300">
+                
+                <h3 className="text-lg font-bold tracking-tight text-foreground mb-2 group-hover:text-pink-400 dark:group-hover:text-pink-300 transition-colors duration-300">
                   {project.title}
                 </h3>
+                
                 <p className="text-xs md:text-[13px] text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
                   {project.description}
                 </p>

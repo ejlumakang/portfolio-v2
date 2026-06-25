@@ -9,7 +9,6 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   
-  const targetedSectionRef = useRef<string | null>(null);
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null); 
   const containerRef = useRef<HTMLUListElement>(null);
@@ -19,12 +18,7 @@ export default function Navbar() {
     setMounted(true);
 
     const handleScroll = () => {
-      if (isScrollingRef.current && targetedSectionRef.current) {
-        if (activeSection !== targetedSectionRef.current) {
-          setActiveSection(targetedSectionRef.current);
-        }
-        return;
-      }
+      if (isScrollingRef.current) return;
 
       const sections = ["home", "experience", "technologies", "projects", "certifications"];
       let currentSection = activeSection;
@@ -47,20 +41,23 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
   }, [activeSection]);
 
   useEffect(() => {
     if (!mounted || !containerRef.current) return;
 
-    const activeElement = containerRef.current.querySelector(`[data-section="${activeSection}"]`);
-    if (activeElement) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const activeRect = activeElement.getBoundingClientRect();
+    const activeElement = containerRef.current.querySelector(
+      `[data-section="${activeSection}"]`
+    ) as HTMLElement | null;
 
+    if (activeElement) {
       setPillStyle({
-        left: activeRect.left - containerRect.left + containerRef.current.scrollLeft,
-        width: activeRect.width,
+        left: activeElement.offsetLeft,
+        width: activeElement.offsetWidth,
         opacity: 1,
       });
     } else {
@@ -96,21 +93,24 @@ export default function Navbar() {
   const navItems = ["home", "experience", "technologies", "projects", "certifications"];
 
   return (
-    <div className="fixed top-6 left-0 right-0 z-50 px-4 flex justify-center">
-      <nav className={`flex items-center gap-2 p-2 px-3 rounded-full border backdrop-blur-md transition-all w-full max-w-fit
+    <div className="fixed top-6 left-0 right-0 z-50 px-8 flex justify-center items-center w-full">
+
+      <nav className={`flex items-center justify-between flex-nowrap gap-2 p-2 pl-3 pr-4 rounded-full border backdrop-blur-md transition-all max-w-full w-auto select-none
         ${isDark ? "bg-[#1f1f1f]/80 border-white/[0.08]" : "bg-white/70 border-gray-200"}`}>
         
         <ul 
           ref={containerRef}
-          className="relative flex items-center gap-1 overflow-x-auto no-scrollbar max-w-[calc(100vw-80px)]"
+          className="relative flex items-center gap-1 overflow-x-auto whitespace-nowrap list-none m-0 p-0 max-w-full [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           <div
-            className="absolute inset-y-0 rounded-full transition-all duration-300 pointer-events-none -z-10 bg-black dark:bg-white"
+            className="absolute inset-y-0 rounded-full pointer-events-none -z-10 bg-black dark:bg-white"
             style={{
               left: `${pillStyle.left}px`,
               width: `${pillStyle.width}px`,
               opacity: pillStyle.opacity,
-              transitionTimingFunction: "cubic-bezier(0.25, 1, 0.4, 1)", 
+              transitionProperty: "left, width, opacity",
+              transitionDuration: "280ms",
+              transitionTimingFunction: "cubic-bezier(0.25, 1, 0.5, 1)", 
             }}
           />
 
@@ -126,10 +126,9 @@ export default function Navbar() {
                   e.preventDefault(); 
                   
                   setActiveSection(item);
-                  targetedSectionRef.current = item;
+                  isScrollingRef.current = true;
                   
                   if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-                  isScrollingRef.current = true;
                   
                   const element = document.getElementById(item);
                   if (element) {
@@ -137,11 +136,10 @@ export default function Navbar() {
                     
                     scrollTimeoutRef.current = setTimeout(() => {
                       isScrollingRef.current = false;
-                      targetedSectionRef.current = null;
-                    }, 600);
+                    }, 800);
                   }
                 }}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full capitalize whitespace-nowrap block transition-all duration-200
+                className={`relative px-4 py-2 text-xs sm:text-sm font-medium rounded-full capitalize whitespace-nowrap inline-block transition-all duration-200
                   ${isActive 
                     ? "text-white dark:text-black font-semibold" 
                     : "text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5"
@@ -152,7 +150,11 @@ export default function Navbar() {
             );
           })}
         </ul>
-        <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors shrink-0">
+
+        <button 
+          onClick={toggleTheme} 
+          className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-muted-foreground hover:text-foreground transition-colors shrink-0 ml-2"
+        >
           {isDark ? <Moon size={18} /> : <Sun size={18} />}
         </button>
       </nav>

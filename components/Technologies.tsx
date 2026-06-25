@@ -3,19 +3,6 @@
 import { technologies, techCategories } from "@/data/portfolio"
 import { motion, Variants } from "framer-motion"
 
-import { Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google"
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: "700",
-})
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
-})
-
 interface TechItem {
   name: string;
   icon: string;
@@ -24,7 +11,7 @@ interface TechItem {
 
 function TechCard({ tech }: { tech: TechItem }) {
   return (
-    <div className="group font-mono flex flex-col items-center justify-center gap-2.5 p-3 rounded-[12px] border border-border bg-card transition-all duration-300 ease-out cursor-default select-none hover:border-foreground/20 dark:hover:border-foreground/35 hover:bg-muted/30 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.02)] dark:hover:shadow-[0_4px_12px_-4px_rgba(255,255,255,0.08)] text-center">
+    <div className="group font-mono flex flex-col items-center justify-center gap-2.5 p-3 rounded-[12px] border border-border bg-card transition-all duration-300 ease-out cursor-default select-none hover:border-pink-500 dark:hover:border-pink-400 hover:bg-pink-500/[0.01] dark:hover:bg-pink-500/[0.02] hover:-translate-y-0.5 hover:shadow-[0_2px_8px_rgba(236,72,153,0.12)] dark:hover:shadow-[0_2px_10px_rgba(236,72,153,0.18)] text-center">
       <div className="w-9 h-9 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ease-out">
         <img 
           src={tech.icon} 
@@ -32,7 +19,7 @@ function TechCard({ tech }: { tech: TechItem }) {
           className={`w-full h-full object-contain ${tech.darkInvert ? 'dark:invert' : ''}`} 
         />
       </div>
-      <span className="text-[10px] tracking-tight font-bold truncate max-w-full text-muted-foreground group-hover:text-foreground transition-colors duration-300 px-0.5">
+      <span className="text-[10px] tracking-tight font-bold truncate max-w-full text-muted-foreground group-hover:text-foreground dark:group-hover:text-white transition-colors duration-300 px-0.5">
         {tech.name}
       </span>
     </div>
@@ -71,7 +58,7 @@ export default function Technologies() {
           >
             <motion.span 
               variants={itemVariants}
-              className="font-mono text-xs text-muted-foreground/50 tracking-tight"
+              className="font-mono text-xs text-pink-500 dark:text-pink-400 font-bold tracking-[0.2em] uppercase mb-4"
             >
               02 / THE TOOLKIT
             </motion.span>
@@ -79,10 +66,10 @@ export default function Technologies() {
               variants={itemVariants}
               className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]"
             >
-              <span className={`${plusJakarta.className} font-black tracking-tight text-black dark:text-white`}>
+              <span className="font-black tracking-tight text-black dark:text-white">
                 Technical
               </span>
-              <span className={`${instrumentSerif.className} text-black dark:text-white subpixel-antialiased tracking-normal`}>
+              <span className="font-serif text-black dark:text-white subpixel-antialiased tracking-normal">
                 Stack.
               </span>
             </motion.h2>
@@ -112,17 +99,16 @@ export default function Technologies() {
               .filter((t): t is TechItem => !!t);
 
             const formattedIndex = String(index + 1).padStart(2, '0');
-            
             const isFrontendSection = index === 2;
 
             return (
               <motion.div 
                 key={categoryName}
                 variants={itemVariants}
-                className="flex flex-col p-6 rounded-xl border border-border bg-card transition-colors duration-300 hover:border-foreground/10"
+                className="flex flex-col p-6 rounded-xl border border-border bg-card transition-colors duration-300 relative overflow-hidden"
               >
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="font-mono text-[11px] font-bold text-muted-foreground/80 bg-muted px-2 py-0.5 rounded-[6px] border border-border">
+                  <span className="font-mono text-[11px] font-bold text-pink-500 dark:text-pink-400 bg-pink-500/5 dark:bg-pink-400/5 px-2 py-0.5 rounded-[6px] border border-pink-500/10 dark:border-pink-400/10">
                     {formattedIndex}
                   </span>
                   

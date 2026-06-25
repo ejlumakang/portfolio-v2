@@ -35,6 +35,8 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  --font-serif: var(--font-serif), Georgia, serif;
 }
 
 @layer base {
@@ -52,13 +54,14 @@
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 210 8% 36%;        
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 330 85% 95%;   
+    --accent-foreground: 330 75% 45%;
+    --ring: 330 75% 50%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
   }
  
@@ -76,13 +79,14 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 53%; 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 330 95% 15%; 
+    --accent-foreground: 330 95% 70%;
+    --ring: 330 95% 70%;
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 0% 83.1%;
   }
 }
 
@@ -144,6 +148,30 @@ body {
   }
 }
 
+/* Custom ambient background styles inspired by image_2f4aad.jpg */
+.bg-aurora-dark {
+  background-color: #050505; /* Pitch black slate */
+}
+
+/* Deep ambient background aura */
+.pink-aura-glow {
+  background: radial-gradient(
+    60% 50% at 50% 50%,
+    rgba(219, 39, 119, 0.15) 0%,   /* Deep pink core */
+    rgba(162, 28, 175, 0.05) 50%,  /* Fuchsia fade */
+    transparent 100%
+  );
+}
+
+/* Curved horizon edge beam */
+.pink-horizon-beam {
+  background: radial-gradient(
+    50% 100% at 50% 100%,
+    rgba(244, 63, 94, 0.3) 0%,     /* Rose highlight beam */
+    rgba(219, 39, 119, 0.1) 40%,    /* Pink diffusion */
+    transparent 80%
+  );
+}
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }

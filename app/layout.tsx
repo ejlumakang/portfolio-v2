@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google"
+import { Plus_Jakarta_Sans, JetBrains_Mono, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/Navbar"
@@ -14,6 +14,13 @@ const mono = JetBrains_Mono({
   variable: "--font-mono" 
 })
 
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  variable: "--font-serif",
+})
+
 export const metadata: Metadata = {
   title: "Eloiza Lumakang",
   description: "Computer Science student and Frontend Developer",
@@ -22,11 +29,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sans.variable} ${mono.variable} font-sans antialiased`}>
+      <body className={`${sans.variable} ${mono.variable} ${serif.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
           <SmoothScroller>
-          <main>{children}</main>
+            <main>{children}</main>
           </SmoothScroller>
         </ThemeProvider>
       </body>

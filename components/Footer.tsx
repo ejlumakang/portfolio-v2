@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="flex items-center gap-6 text-muted-foreground/80">
           <a 
             href="mailto:ejlumakang@gmail.com" 
-            className="hover:text-foreground transition-all duration-300 ease-out hover:-translate-y-0.5 block"
+            className="hover:text-pink-500 transition-all duration-300 ease-out hover:-translate-y-0.5 block"
           >
             <Mail size={18}/>
           </a>
@@ -18,7 +18,7 @@ export default function Footer() {
             href="https://github.com/ejlumakang" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hover:text-foreground transition-all duration-300 ease-out hover:-translate-y-0.5 block"
+            className="hover:text-pink-500 transition-all duration-300 ease-out hover:-translate-y-0.5 block"
           >
             <FaGithub size={18}/>
           </a>
@@ -26,7 +26,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/ejlmkng/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hover:text-foreground transition-all duration-300 ease-out hover:-translate-y-0.5 block"
+            className="hover:text-pink-500 transition-all duration-300 ease-out hover:-translate-y-0.5 block"
           >
             <FaLinkedin size={18}/>
           </a>

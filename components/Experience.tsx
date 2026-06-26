@@ -35,13 +35,8 @@ export default function Experience() {
               01 / THE JOURNEY
             </span>
             
-            <h2 className="flex flex-wrap items-baseline gap-x-3 text-4xl md:text-5xl leading-[0.85]">
-              <span className="font-black tracking-tight text-black dark:text-white">
-                Where I've
-              </span>
-              <span className="font-serif text-black dark:text-white subpixel-antialiased tracking-normal lowercase">
-                been.
-              </span>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+              Where I've <span className="font-serif italic text-foreground/80 font-normal">been.</span>
             </h2>
           </motion.div>
           

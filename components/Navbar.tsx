@@ -20,7 +20,7 @@ export default function Navbar() {
     const handleScroll = () => {
       if (isScrollingRef.current) return;
 
-      const sections = ["home", "experience", "technologies", "projects", "certifications"];
+      const sections = ["home", "experience", "technologies", "projects", "certifications", "contact"];
       let currentSection = activeSection;
 
       for (const section of sections) {
@@ -90,11 +90,10 @@ export default function Navbar() {
   if (!mounted) return null;
 
   const isDark = resolvedTheme === "dark";
-  const navItems = ["home", "experience", "technologies", "projects", "certifications"];
+  const navItems = ["home", "experience", "technologies", "projects", "certifications", "contact"];
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 px-8 flex justify-center items-center w-full">
-
       <nav className={`flex items-center justify-between flex-nowrap gap-2 p-2 pl-3 pr-4 rounded-full border backdrop-blur-md transition-all max-w-full w-auto select-none
         ${isDark ? "bg-[#1f1f1f]/80 border-white/[0.08]" : "bg-white/70 border-gray-200"}`}>
         

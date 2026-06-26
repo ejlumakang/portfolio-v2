@@ -251,10 +251,10 @@ export const certifications = [
    {
     id: "comp-02",
     title: "Game Jam Los Banos 2025: Likhang Laro, Larong Likha",
-    issuer: "UPLB COSS & GDS",
+    issuer: "UPLB COSS & UPLB GDS",
     date: "2025",
     type: "COMPETITION",
-    result: "3rd Place - People's Choice",
+    result: "3rd Place People's Choice",
     image: "img/certificate/img6.png"
     
   },
@@ -264,7 +264,7 @@ export const certifications = [
     issuer: "DLSU-D & Campus DEVCON",
     date: "2025",
     type: "COMPETITION",
-    result: "Top Finalist",
+    result: "Top 10 Finalist",
     image: "img/certificate/img1.jpg"
   },
   {
@@ -273,7 +273,7 @@ export const certifications = [
     issuer: "DLSU-D & Campus DEVCON",
     date: "2025",
     type: "COMPETITION",
-    result: "Top Finalist",
+    result: "Top 10 Finalist",
     image: "img/certificate/img2.png"
   },
  {
@@ -288,7 +288,7 @@ export const certifications = [
   {
     id: "cert-01",
     title: "Linux Essentials",
-    issuer: "Cisco",
+    issuer: "NDG & Cisco Networking Academy",
     date: "2026",
     type: "CERTIFICATION",
     image: "img/certificate/cisco/linux.png"
@@ -296,7 +296,7 @@ export const certifications = [
   {
     id: "cert-02",
     title: "Operating Systems Basics",
-    issuer: "Cisco",
+    issuer: "Cisco Networking Academy",
     date: "2026",
     type: "CERTIFICATION",
     image: "img/certificate/cisco/os-basics.png"
@@ -304,7 +304,7 @@ export const certifications = [
   {
     id: "cert-03",
     title: "Data Analytics Essentials",
-    issuer: "Cisco",
+    issuer: "Cisco Networking Academy",
     date: "2025",
     type: "CERTIFICATION",
     image: "img/certificate/cisco/data-analytics.png"
@@ -312,7 +312,7 @@ export const certifications = [
   {
     id: "cert-04",
     title: "Introduction to Cybersecurity",
-    issuer: "Cisco",
+    issuer: "Cisco Networking Academy",
     date: "2024",
     type: "CERTIFICATION",
     image: "img/certificate/cisco/cybersecurity.png"
@@ -320,7 +320,7 @@ export const certifications = [
   {
     id: "cert-05",
     title: "Introduction to IoT",
-    issuer: "Cisco",
+    issuer: "Cisco Networking Academy",
     date: "2024",
     type: "CERTIFICATION",
     image: "img/certificate/cisco/iot.png"
@@ -328,7 +328,7 @@ export const certifications = [
   {
     id: "cert-06",
     title: "Introduction to Data Science",
-    issuer: "Cisco",
+    issuer: "Cisco Networking Academy",
     date: "2024",
     type: "CERTIFICATION",
     image: "img/certificate/cisco/data-science.png"
@@ -352,7 +352,7 @@ export const certifications = [
     {
     id: "work-03",
     title: "Back to Basics: Robotics 101",
-    issuer: "DLSU-D CSPC",
+    issuer: "DLSU-D CSPC & SPRYtech Solutions Corp.",
     date: "2024",
     type: "EVENTS",
     image: "img/certificate/img13.png"
@@ -380,21 +380,5 @@ export const certifications = [
     date: "2024",
     type: "EVENTS",
     image: "img/certificate/img12.png"
-  },
-  {
-    id: "work-07",
-    title: "Tulong Karunungan Python Pathways: CodeSprint",
-    issuer: "Tulong Karunungan",
-    date: "2023",
-    type: "EVENTS",
-    image: "img/certificate/img14.png"
-  },
-    {
-    id: "work-08",
-    title: "Tulong Karunungan Python Pathways: CodeCanvas",
-    issuer: "Tulong Karunungan",
-    date: "2023",
-    type: "EVENTS",
-    image: "img/certificate/img15.png"
   },
 ];

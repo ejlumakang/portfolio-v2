@@ -69,7 +69,7 @@ export default function Technologies() {
               <span className="font-black tracking-tight text-black dark:text-white">
                 Technical
               </span>
-              <span className="font-serif text-black dark:text-white subpixel-antialiased tracking-normal">
+              <span className="font-serif italic text-foreground/80 font-normal">
                 Stack.
               </span>
             </motion.h2>

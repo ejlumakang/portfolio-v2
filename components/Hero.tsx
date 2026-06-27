@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Mail, ArrowDown, Download } from "lucide-react"
+import { Mail, ArrowDown, Download, MapPin } from "lucide-react"
 import { FaGithub, FaLinkedin } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 import { motion, Variants } from "framer-motion"
@@ -55,39 +55,27 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p variants={textVariants} className="mt-6 text-muted-foreground text-lg max-w-lg">
-            B.S. Computer Science student at DLSU-D, building Intelligent Systems and crafting intuitive digital experiences.
+            I'm a Computer Science student at DLSU-D, focused on building intelligent systems and crafting intuitive digital experiences.
           </motion.p>
 
-          <motion.div variants={textVariants} className="flex flex-col items-center md:items-start gap-6 mt-10">
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-              <Button asChild className="rounded-full h-11 px-6 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90">
-                <a href="#projects">View Projects <ArrowDown className="ml-2 w-4 h-4" /></a>
-              </Button>
-              <Button 
-                asChild 
-                variant="outline" 
-                className="rounded-full h-11 px-6 text-sm font-medium bg-transparent border-border hover:bg-transparent hover:border-foreground transition-colors"
-              >
-                <a href="https://drive.google.com/file/d/1RaPukzDFC8hjoMG-DtIEM8_sBSpGVqbw/view" target="_blank" rel="noopener noreferrer">
-                  Download Resume <Download className="ml-2 w-4 h-4" />
-                </a>
-              </Button>
-            </div>
-            <div className="flex items-center gap-6 text-muted-foreground pt-2">
-              <a href="mailto:ejlumakang@gmail.com" className="hover:text-pink-600 transition-colors">
-                <Mail className="w-5 h-5" />
+          <motion.div variants={textVariants} className="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-10">
+            <Button asChild className="rounded-full h-13 px-6 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90">
+              <a href="#projects">View Projects <ArrowDown className="ml-2 w-4 h-4" /></a>
+            </Button>
+            
+            <Button 
+              asChild 
+              variant="outline" 
+              className="rounded-full h-13 px-6 text-sm font-medium bg-transparent border-border hover:bg-transparent hover:border-foreground transition-colors"
+            >
+              <a href="https://drive.google.com/file/d/1RaPukzDFC8hjoMG-DtIEM8_sBSpGVqbw/view" target="_blank" rel="noopener noreferrer">
+                Download Resume <Download className="ml-2 w-4 h-4" />
               </a>
-              <a href="https://www.linkedin.com/in/ejlmkng/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600 transition-colors">
-                <FaLinkedin size={20} />
-              </a>
-              <a href="https://github.com/ejlumakang" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600 transition-colors">
-                <FaGithub size={20} />
-              </a>
-            </div>
+            </Button>
           </motion.div>
         </div>
 
-        <motion.div variants={photoVariants} className="w-full md:w-1/2 flex flex-col items-center gap-4">
+        <motion.div variants={photoVariants} className="w-full md:w-1/2 flex flex-col items-center gap-6">
           <div className="relative w-full max-w-[300px] md:max-w-[360px] aspect-square rounded-full overflow-hidden border-0 p-[3px]">
             <div className="absolute inset-0 rounded-full overflow-hidden">
               <motion.div 
@@ -97,37 +85,63 @@ export default function Hero() {
               />
             </div>
             <div className="relative w-full h-full rounded-full overflow-hidden bg-background">
+              <motion.div 
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full h-full"
+              >
               <Image 
                 src="/img/profile.JPG" 
                 alt="Eloiza Joy B. Lumakang" 
                 fill 
+                sizes="(max-width: 768px) 300px, 360px"
                 className="object-cover" 
                 style={{ objectPosition: "50% 20%" }}
                 priority 
               />
+              </motion.div>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 w-full max-w-[300px] md:max-w-[360px]">
+          <div className="flex items-center w-full max-w-[300px] md:max-w-[360px] rounded-2xl border border-border bg-card overflow-hidden">
             {[
               { label: "GPA", value: "3.7" },
-              { label: "Projects", value: "10" },
+              { label: "Projects", value: "10+" },
               { label: "Years Coding", value: "4" },
             ].map((stat, i) => (
-              <motion.div 
+              <div 
                 key={i} 
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex flex-col items-center justify-center p-2 sm:p-3 rounded-2xl border border-border bg-card hover:border-pink-500/50 hover:bg-pink-500/5 transition-colors cursor-default"
+                className="flex-1 flex flex-col items-center justify-center py-4 relative group"
               >
+                {i < 2 && (
+                  <div className="absolute right-0 top-0 bottom-0 my-auto h-8 w-[1px] bg-border" />
+                )}
+                
                 <span className="text-base sm:text-lg font-black text-foreground group-hover:text-pink-500 transition-colors">
                   {stat.value}
                 </span>
                 <span className="text-[8px] sm:text-[9px] font-mono uppercase tracking-wider sm:tracking-widest text-muted-foreground font-bold">
                   {stat.label}
                 </span>
-              </motion.div>
+              </div>
             ))}
+          </div>
+
+          <div className="flex items-center gap-6 text-muted-foreground">
+            <a href="mailto:ejlumakang@gmail.com" className="hover:text-pink-600 transition-colors">
+              <Mail className="w-6 h-6" />
+            </a>
+            <a href="https://www.linkedin.com/in/ejlmkng/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600 transition-colors">
+              <FaLinkedin size={24} />
+            </a>
+            <a href="https://github.com/ejlumakang" target="_blank" rel="noopener noreferrer" className="hover:text-pink-600 transition-colors">
+              <FaGithub size={24} />
+            </a>
+            <div className="h-6 w-[1px] bg-border" />
+            <div className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
+              <MapPin className="w-4 h-4 text-pink-500" />
+              <span>Cavite, Philippines</span>
+            </div>
           </div>
         </motion.div>
       </motion.div>

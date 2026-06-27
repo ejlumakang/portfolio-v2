@@ -26,16 +26,6 @@ export default function Certifications() {
 
   const filteredCertifications = certifications.filter(cert => cert.type === activeFilter)
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0 }
-  }
-
   return (
     <section id="certifications" ref={sectionRef} className="py-20 md:py-28 border-t border-border bg-background relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
@@ -59,38 +49,40 @@ export default function Certifications() {
             </motion.p>
           </div>
 
-          <div className="relative border-t border-border pt-12">
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="flex flex-wrap gap-2 justify-center"
-            >
-              {filters.map((filter) => (
-                <motion.button
-                  variants={itemVariants}
-                  key={filter.value}
-                  onClick={() => setActiveFilter(filter.value)}
-                  className={`px-8 py-2.5 text-sm font-mono font-medium rounded-full border transition-all ${
-                    activeFilter === filter.value 
-                      ? "bg-foreground text-background border-foreground" 
-                      : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
-                  }`}
-                >
-                  {filter.label}
-                </motion.button>
-              ))}
-            </motion.div>
+          <div className="relative pt-6 flex items-center justify-center">
+            <div className="flex items-center gap-1 bg-card border border-border p-1 rounded-full w-fit relative">
+              {filters.map((filter) => {
+                const isActive = activeFilter === filter.value;
+                return (
+                  <button
+                    key={filter.value}
+                    onClick={() => setActiveFilter(filter.value)}
+                    className={`px-4 py-2 text-xs font-mono font-medium rounded-full transition-colors relative z-10 ${
+                      isActive 
+                        ? "text-primary-foreground" 
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <span className="relative z-20">{filter.label}</span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 bg-foreground rounded-full"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
         <motion.div 
-          key={activeFilter}
           layout 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[400px]"
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="popLayout" initial={false}>
             {filteredCertifications.map((cert, index) => {
               const displayId = (index + 1).toString().padStart(2, '0');
               return (
@@ -98,12 +90,15 @@ export default function Certifications() {
                   layout
                   key={cert.id}
                   onClick={() => setSelectedCert(cert)}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  exit={{ opacity: 0, scale: 0.95, position: "absolute" }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="group cursor-pointer bg-card border border-border/80 rounded-xl overflow-hidden transition-all duration-500 ease-out flex flex-col hover:-translate-y-1.5 hover:shadow-[0_4px_20px_-4px_rgba(236,72,153,0.15)] dark:hover:shadow-[0_4px_20px_-4px_rgba(236,72,153,0.25)] hover:border-pink-500 dark:hover:border-pink-400"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ 
+                    duration: 0.2, 
+                    ease: "easeInOut",
+                    layout: { duration: 0.3 }
+                  }}
+                  className="group cursor-pointer bg-card border border-border/80 rounded-xl overflow-hidden transition-all duration-300 ease-out flex flex-col hover:-translate-y-1.5 hover:shadow-[0_4px_20px_-4px_rgba(236,72,153,0.15)] dark:hover:shadow-[0_4px_20px_-4px_rgba(236,72,153,0.25)] hover:border-pink-500 dark:hover:border-pink-400"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-muted/20 p-6 flex items-center justify-center">
                     <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md border border-white/10 text-white font-mono text-[10px] font-medium px-2 py-1 rounded-md z-10">
@@ -115,13 +110,12 @@ export default function Certifications() {
                     <img 
                       src={cert.image || getFallbackIcon(cert.type || "CERTIFICATION")} 
                       alt={cert.title} 
-                      className="w-full h-full object-contain opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-700"
+                      className="w-full h-full object-contain opacity-90 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-300"
                     />
                   </div>
                   
                   <div className="p-5 flex flex-col flex-grow">
                     <p className="font-mono text-[10px] text-muted-foreground/80 uppercase tracking-widest mb-1.5 block">{cert.issuer}</p>
-                    
                     <h3 className="text-base font-bold tracking-tight text-foreground mb-4 group-hover:text-pink-400 dark:group-hover:text-pink-300 transition-colors duration-300">
                       {cert.title}
                     </h3>

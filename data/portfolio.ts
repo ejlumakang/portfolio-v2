@@ -1,28 +1,37 @@
 export const technologies = [
-  { name: "PYTHON", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", size: "medium", category: "LANGUAGE" },
-  { name: "JAVASCRIPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg", size: "small", category: "LANGUAGE" },
-  { name: "JAVA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg", size: "small", category: "LANGUAGE" },
-  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg", size: "small", category: "FRONTEND" },
-  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg", size: "small", category: "FRONTEND" },
-  { name: "REACT NATIVE", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", size: "large", category: "FRONTEND" },
-  { name: "TAILWIND CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", size: "small", category: "FRONTEND" },
-  { name: "FLASK", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg", size: "small", darkInvert: true, category: "BACKEND" },
-  { name: "FIGMA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg", size: "medium", category: "DESIGN" },
-  { name: "VS CODE", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg", size: "small", category: "TOOLS" },
-  { name: "CANVA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg", size: "small", category: "TOOLS" },
-  { name: "WORKSPACE", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg", size: "medium", category: "TOOLS" },
-  { name: "NUMPY", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg", size: "small", category: "DATA SCIENCE" },
-  { name: "SCIKIT-LEARN", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg", size: "small", category: "DATA SCIENCE" },
-  { name: "MATPLOTLIB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg", size: "small", category: "DATA SCIENCE" },
-  { name: "PANDAS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg", size: "small", category: "DATA SCIENCE" },
-  { name: "SEABORN", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Logo-seaborn.png/330px-Logo-seaborn.png", size: "small", category: "DATA SCIENCE" },
-  { name: "GIT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", size: "small", category: "TOOLS" },
-  { name: "GITHUB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", size: "small", darkInvert: true, category: "TOOLS" },
-  { name: "MICROSOFT APPS", icon: "https://cdn-icons-png.flaticon.com/512/732/732221.png", size: "medium", category: "TOOLS" },
-  { name: "GOOGLE COLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg", size: "small", category: "DATA SCIENCE" },
-  { name: "REACT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", size: "medium", category: "FRONTEND" },
-  { name: "NEXT.JS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", size: "small", category: "FRONTEND" },
-  { name: "TYPESCRIPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", size: "small", category: "FRONTEND" }
+  // LANGUAGES & FRAMEWORKS
+  { name: "PYTHON", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "JAVASCRIPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "JAVA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "CSS3", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "TYPESCRIPT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "REACT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "REACT NATIVE", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "TAILWIND CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", category: "LANGUAGES & FRAMEWORKS" },
+  { name: "NEXT.JS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg", darkInvert: true, category: "LANGUAGES & FRAMEWORKS" },
+  { name: "FLASK", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg", darkInvert: true, category: "LANGUAGES & FRAMEWORKS" },
+
+  // DATA SCIENCE & ANALYTICS
+  { name: "NUMPY", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg", category: "DATA SCIENCE & ANALYTICS" },
+  { name: "SCIKIT-LEARN", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg", category: "DATA SCIENCE & ANALYTICS" },
+  { name: "MATPLOTLIB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg", category: "DATA SCIENCE & ANALYTICS" },
+  { name: "PANDAS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg", darkInvert: true, category: "DATA SCIENCE & ANALYTICS" },
+  { name: "SEABORN", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Logo-seaborn.png/330px-Logo-seaborn.png", category: "DATA SCIENCE & ANALYTICS" },
+  { name: "GOOGLE COLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecolab/googlecolab-original.svg", category: "DATA SCIENCE & ANALYTICS" },
+  { name: "MATLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg", category: "DATA SCIENCE & ANALYTICS" },
+
+  // TOOLS & TECHNOLOGIES
+  { name: "GIT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", category: "TOOLS & TECHNOLOGIES" },
+  { name: "GITHUB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", darkInvert: true, category: "TOOLS & TECHNOLOGIES" },
+  { name: "FIGMA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg", category: "TOOLS & TECHNOLOGIES" },
+  { name: "VS CODE", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg", category: "TOOLS & TECHNOLOGIES" },
+  { name: "CANVA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg", category: "TOOLS & TECHNOLOGIES" },
+  { name: "WORKSPACE", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg", category: "TOOLS & TECHNOLOGIES" },
+  { name: "MICROSOFT APPS", icon: "https://cdn-icons-png.flaticon.com/512/732/732221.png", category: "TOOLS & TECHNOLOGIES" },
+  { name: "FRAMER", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg", darkInvert: true, category: "TOOLS & TECHNOLOGIES" },
+  { name: "PYCHARM", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg", category: "TOOLS & TECHNOLOGIES" },
+  { name: "INTELLIJ", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg", category: "TOOLS & TECHNOLOGIES" }
 ];
 
 export const projects = [
@@ -186,14 +195,7 @@ export const projects = [
       { name: "Mobile", icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='2' width='14' height='20' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'%3E%3C/line%3E%3C/svg%3E", darkInvert: true }
     ]
   }
-  
 ];
-
-export const techCategories = {
-  "Core Engineering & Tools": ["PYTHON", "JAVASCRIPT", "JAVA", "FLASK", "GIT", "GITHUB", "VS CODE"],
-  "Data Science & Intelligent Systems": ["NUMPY", "SCIKIT-LEARN", "MATPLOTLIB", "PANDAS", "SEABORN", "GOOGLE COLAB"],
-  "Frontend & Interface Design": ["HTML5", "CSS3", "TYPESCRIPT","REACT NATIVE", "TAILWIND CSS", "NEXT.JS", "FIGMA", "CANVA", "WORKSPACE", "MICROSOFT APPS"]
-};
 
 export const experience = [
   {

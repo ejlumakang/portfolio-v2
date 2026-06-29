@@ -2,7 +2,10 @@
 
 import { motion } from "framer-motion"
 import { Copy, ArrowUpRight } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+
+// Import the fluid background component
+import FluidSimulation from "@/components/FluidSimulation"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -19,6 +22,11 @@ const itemVariants = {
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText("ejlumakang@gmail.com")
@@ -27,13 +35,23 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 md:py-24 border-t border-border bg-background">
+    // Added 'relative' so the fluid canvas can absolute-position correctly
+    <section id="contact" className="py-20 md:py-24 border-t border-border bg-background relative overflow-hidden">
+      
+      {/* Interactive WebGL Fluid Layer - Keeps uniform full brightness */}
+      {mounted && (
+        <div className="absolute inset-0 z-0 pointer-events-auto opacity-90">
+          <FluidSimulation />
+        </div>
+      )}
+
+      {/* Main Content Layout Container - Added z-10 and pointer-events-none so lines pass to simulation */}
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="max-w-7xl mx-auto px-6 md:px-8 grid md:grid-cols-2 gap-16 items-center"
+        className="max-w-7xl mx-auto px-6 md:px-8 grid md:grid-cols-2 gap-16 items-center z-10 relative pointer-events-none"
       >
         <motion.div variants={itemVariants} className="flex flex-col gap-6">
           <span className="font-mono text-xs text-pink-500 font-bold tracking-[0.2em] uppercase">05 / GET IN TOUCH</span>
@@ -47,7 +65,8 @@ export default function Contact() {
         </motion.div>
 
         <motion.div variants={itemVariants} className="flex flex-col gap-4">
-          <a href="https://linkedin.com/in/ejlumakang" target="_blank" rel="noreferrer" className="group p-6 rounded-2xl border border-border bg-card hover:border-pink-500 transition-all flex items-center justify-between">
+          {/* Added pointer-events-auto to cards so they are clickable & hoverable */}
+          <a href="https://linkedin.com/in/ejlumakang" target="_blank" rel="noreferrer" className="group p-6 rounded-2xl border border-border bg-card hover:border-pink-500 transition-all flex items-center justify-between pointer-events-auto">
             <div>
               <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-1">LinkedIn</p>
               <p className="font-medium">linkedin.com/in/ejlumakang</p>
@@ -55,7 +74,7 @@ export default function Contact() {
             <ArrowUpRight size={20} className="text-muted-foreground group-hover:text-pink-500 transition-colors" />
           </a>
 
-          <a href="https://github.com/ejlumakang" target="_blank" rel="noreferrer" className="group p-6 rounded-2xl border border-border bg-card hover:border-pink-500 transition-all flex items-center justify-between">
+          <a href="https://github.com/ejlumakang" target="_blank" rel="noreferrer" className="group p-6 rounded-2xl border border-border bg-card hover:border-pink-500 transition-all flex items-center justify-between pointer-events-auto">
             <div>
               <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-1">Github</p>
               <p className="font-medium">github.com/ejlumakang</p>
@@ -65,7 +84,7 @@ export default function Contact() {
 
           <button 
             onClick={copyToClipboard}
-            className="group w-full text-left p-6 rounded-2xl border border-border bg-card hover:border-pink-500 transition-all flex items-center justify-between"
+            className="group w-full text-left p-6 rounded-2xl border border-border bg-card hover:border-pink-500 transition-all flex items-center justify-between pointer-events-auto"
           >
             <div>
               <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-1">Email</p>

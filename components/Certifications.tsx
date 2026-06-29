@@ -116,7 +116,9 @@ export default function Certifications() {
                   
                   <div className="p-5 flex flex-col flex-grow">
                     <p className="font-mono text-[10px] text-muted-foreground/80 uppercase tracking-widest mb-1.5 block">{cert.issuer}</p>
-                    <h3 className="text-base font-bold tracking-tight text-foreground mb-4 group-hover:text-pink-400 dark:group-hover:text-pink-300 transition-colors duration-300">
+                    
+                    {/* Changed transition-colors to explicit text property targeting to fix dark mode lag */}
+                    <h3 className="text-base font-bold tracking-tight text-foreground mb-4 group-hover:text-pink-400 dark:group-hover:text-pink-300 transition-[color] duration-300">
                       {cert.title}
                     </h3>
                     
@@ -137,7 +139,7 @@ export default function Certifications() {
       </div>
 
       <Dialog open={!!selectedCert} onOpenChange={() => setSelectedCert(null)}>
-        <DialogContent className="sm:max-w-[850px] w-[95vw] p-0 overflow-hidden bg-transparent border-none shadow-none">
+        <DialogContent className="sm:max-w-[850px] w-[95vw] p-0 overflow-hidden bg-transparent border-none shadow-none [&>button]:hidden">
           <DialogTitle className="sr-only">Certificate Preview</DialogTitle>
           <DialogDescription className="sr-only">Large view of the selected certification</DialogDescription>
           
@@ -146,6 +148,7 @@ export default function Certifications() {
               <button 
                 onClick={() => setSelectedCert(null)}
                 className="absolute right-4 top-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 backdrop-blur-sm transition-colors"
+                aria-label="Close dialog"
               >
                 <X size={20} />
               </button>

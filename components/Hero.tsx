@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button"
 import { motion, Variants } from "framer-motion"
 import Image from "next/image"
 
+// Import the fluid background component you just created
+import FluidSimulation from "@/components/FluidSimulation"
+
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
 
@@ -34,11 +37,20 @@ export default function Hero() {
 
   return (
     <section id="home" className="min-h-screen flex flex-col justify-center pt-20 pb-12 relative overflow-hidden bg-background">
+      
+      {/* Interactive WebGL Fluid Layer - Removed dark:opacity-40 so it stays bright on dark mode */}
+      {mounted && (
+        <div className="absolute inset-0 z-0 pointer-events-auto opacity-90">
+          <FluidSimulation />
+        </div>
+      )}
+
+      {/* Main Content Layout Container - given z-10, pointer-events-none so mouse passes through to fluid */}
       <motion.div 
         variants={containerVariants} 
         initial="hidden" 
         animate="visible" 
-        className="flex-1 flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-12 w-full z-10 max-w-6xl mx-auto gap-12 md:gap-16"
+        className="flex-1 flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-12 w-full z-10 max-w-6xl mx-auto gap-12 md:gap-16 pointer-events-none"
       >
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start justify-center text-center md:text-left">
           <motion.div variants={textVariants} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border/40 bg-muted/20 text-xs font-mono tracking-tight text-muted-foreground/80 mb-8">
@@ -58,7 +70,7 @@ export default function Hero() {
             I'm a Computer Science student at DLSU-D, focused on building intelligent systems and crafting intuitive digital experiences.
           </motion.p>
 
-          <motion.div variants={textVariants} className="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-10">
+          <motion.div variants={textVariants} className="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-10 pointer-events-auto">
             <Button asChild className="rounded-full h-13 px-6 text-sm font-semibold bg-foreground text-background hover:bg-foreground/90">
               <a href="#projects">View Projects <ArrowDown className="ml-2 w-4 h-4" /></a>
             </Button>
@@ -76,7 +88,7 @@ export default function Hero() {
         </div>
 
         <motion.div variants={photoVariants} className="w-full md:w-1/2 flex flex-col items-center gap-6">
-          <div className="relative w-full max-w-[300px] md:max-w-[360px] aspect-square rounded-full overflow-hidden border-0 p-[3px]">
+          <div className="relative w-full max-w-[300px] md:max-w-[360px] aspect-square rounded-full overflow-hidden border-0 p-[3px] pointer-events-auto">
             <div className="absolute inset-0 rounded-full overflow-hidden">
               <motion.div 
                 animate={{ rotate: 360 }}
@@ -103,7 +115,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="flex items-center w-full max-w-[300px] md:max-w-[360px] rounded-2xl border border-border bg-card overflow-hidden">
+          <div className="flex items-center w-full max-w-[300px] md:max-w-[360px] rounded-2xl border border-border bg-card overflow-hidden pointer-events-auto">
             {[
               { label: "GPA", value: "3.7" },
               { label: "Projects", value: "10+" },
@@ -127,7 +139,7 @@ export default function Hero() {
             ))}
           </div>
 
-          <div className="flex items-center gap-6 text-muted-foreground">
+          <div className="flex items-center gap-6 text-muted-foreground pointer-events-auto">
             <a href="mailto:ejlumakang@gmail.com" className="hover:text-pink-600 transition-colors">
               <Mail className="w-6 h-6" />
             </a>

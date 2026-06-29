@@ -105,7 +105,8 @@ export default function Projects() {
                   {project.category}
                 </span>
                 
-                <h3 className="text-lg font-bold tracking-tight text-foreground mb-2 group-hover:text-pink-400 dark:group-hover:text-pink-300 transition-colors duration-300">
+                {/* Changed transition-colors to explicit text property targeting to fix dark mode lag */}
+                <h3 className="text-lg font-bold tracking-tight text-foreground mb-2 group-hover:text-pink-400 dark:group-hover:text-pink-300 transition-[color] duration-300">
                   {project.title}
                 </h3>
                 
@@ -191,19 +192,12 @@ export default function Projects() {
                   
                   {selectedProject.awards && (
                     <div>
-                      <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Awards & Certificates</span>
+                      <span className="block font-mono text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Awards</span>
                       {selectedProject.awards.map(award => (
                         <span key={award} className="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 text-yellow-600 dark:text-yellow-500 text-xs font-semibold px-3 py-1.5 rounded-md mb-2 block w-fit">
                           <Award size={14} /> {award}
                         </span>
                       ))}
-                      {(selectedProject as any).certificates && (selectedProject as any).certificates.length > 0 && (
-                        <div className="grid grid-cols-4 gap-2 mt-2">
-                          {(selectedProject as any).certificates.map((cert: string, i: number) => (
-                            <img key={i} src={cert} alt="Award credential document mini view" onClick={() => window.open(cert, "_blank")} className="cursor-pointer border border-border rounded-lg aspect-[4/3] object-cover hover:border-foreground/50 transition" />
-                          ))}
-                        </div>
-                      )}
                     </div>
                   )}
 
